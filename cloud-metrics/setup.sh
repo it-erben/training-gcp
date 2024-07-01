@@ -18,7 +18,7 @@ create_vm() {
       sudo apt-get update
       sudo apt-get install -y stress
       # Run stress command to utilize CPU at around 75%
-      stress --cpu 1 --timeout 300 &
+      stress --cpu 4 --timeout 300 &
     "
 }
 
