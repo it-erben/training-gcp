@@ -46,7 +46,7 @@ cd firestore-uploader
     <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-firestore</artifactId>
-        <version>3.1.9</version>
+        <version>3.22.0</version>
     </dependency>
     <dependency>
         <groupId>net.datafaker</groupId>
