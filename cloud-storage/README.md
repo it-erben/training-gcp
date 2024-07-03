@@ -134,11 +134,3 @@ Führen Sie das Tool aus, indem Sie das Fat JAR-File ausführen und die Datei un
 ```sh
 java -jar target/gcs-uploader-1.0-SNAPSHOT-jar-with-dependencies.jar /path/to/your/file.txt your-bucket-name
 ```
-
-
-#### Weitere Verbesserungen
-- **Fehlerbehandlung:** Fügen Sie zusätzliche Fehlerbehandlung hinzu, um verschiedene Szenarien wie nicht existierende Dateien oder fehlende Berechtigungen zu handhaben.
-- **Konfigurationsdatei:** Verwenden Sie eine Konfigurationsdatei oder Umgebungsvariablen, um Projekt-ID und andere Parameter zu speichern.
-- **Unit Tests:** Schreiben Sie Unit-Tests für die Hauptfunktionalität Ihres Programms.
-
-Diese Aufgabe hilft Ihnen, praktische Erfahrungen mit Java, Maven und Google Cloud Storage zu sammeln. Viel Erfolg!
