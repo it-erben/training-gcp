@@ -7,7 +7,9 @@ In dieser Aufgabe werden wir eine Google Cloud Functions-Anwendung bereitstellen
 Für Google Cloud Functions muss eine Reihe von APIs im GCP-Projekt aktiviert sein.
 Wechseln Sie als erstes im Browser in das GCP-Projekt, in dem Sie arbeiten möchten. 
 Rufen Sie dann folgende URL auf:
+
 https://console.cloud.google.com/apis/enableflow?apiid=cloudfunctions.googleapis.com,%20%20%20%20%20cloudbuild.googleapis.com,artifactregistry.googleapis.com,%20%20%20%20%20run.googleapis.com,logging.googleapis.com
+
 Dies wird die benötigten APIs aktivieren.
 
 ## Java-Projekt anlegen und vorbereiten
