@@ -108,6 +108,8 @@ Um sicherzustellen, dass die Main-Class im Manifest des JAR-Files enthalten ist,
 ```
 
 ## Schritt 4: Java-Klasse erstellen
+Entfernen Sie das `src/test`-Verzeichnis sowie die Datei `App.java` im Verzeichnis `src/main/java/com/example`.
+
 Erstellen Sie eine neue Java-Klasse `BqUploader` unter `src/main/java/com/example`.
 
 ```java
