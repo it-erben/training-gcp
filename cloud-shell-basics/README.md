@@ -61,3 +61,5 @@ Es erscheint eine Liste aller Buckets des aktuellen Projekts.
 Wählen Sie den gerade angelegten Bucket aus. Die Datei sollte sich nun in der Liste wiederfinden.
 
 ![gcs-file-list.png](pictures/gcs-file-list.png)
+
+Damit ist die Aufgabe abgeschlossen. Herzlichen Glückwunsch!
