@@ -46,7 +46,7 @@ if __name__ == "__main__":
 ```
 
 ## Schritt 4: Terminal öffnen und Programm testen
-Kopieren Sie den absoluten Pfad der Python-Datei, indem sie rechts auf die Datei im Dateibrowser klicken und "Copy Path" wählen.
+Kopieren Sie den absoluten Pfad der Python-Datei, indem sie auf die Datei im Dateibrowser mit der rechten Maustaste klicken und "Copy Path" wählen.
 
 Öffnen Sie eine neue Shell-Sitzung.
 
@@ -61,5 +61,4 @@ Führen Sie nun das Programm aus. Ersetzen Sie zuvor den oben ermittelten Pfad i
 ```shell
 /bin/python3 /home/alex/test.py # Dateipfad entsprechend anpassen
 ```
-
-
+Damit ist die Aufgabe abgeschlossen. Herzlichen Glückwunsch!
