@@ -1,38 +1,33 @@
 import datetime
-
 from flask import Flask, render_template
-from google.cloud import datastore
+import firebase_admin
+from firebase_admin import firestore
 
-datastore_client = datastore.Client()
+# Initialize Firestore with Firebase credentials
+firebase_admin.initialize_app()
+firestore_client = firestore.client()
+
 app = Flask(__name__)
-
 
 @app.route("/")
 def root():
-    # Store the current access time in Datastore.
+    # Store the current access time in Firestore.
     store_time(datetime.datetime.now(tz=datetime.timezone.utc))
 
-    # Fetch the most recent 10 access times from Datastore.
+    # Fetch the most recent 10 access times from Firestore.
     times = fetch_times(10)
 
     return render_template("index.html", times=times)
 
-
 def store_time(dt):
-    entity = datastore.Entity(key=datastore_client.key("visit"))
-    entity.update({"timestamp": dt})
-
-    datastore_client.put(entity)
-
+    doc_ref = firestore_client.collection("visits").document()
+    doc_ref.set({"timestamp": dt})
 
 def fetch_times(limit):
-    query = datastore_client.query(kind="visit")
-    query.order = ["-timestamp"]
-
-    times = query.fetch(limit=limit)
+    visits_ref = firestore_client.collection("visits").order_by("timestamp", direction=firestore.Query.DESCENDING).limit(limit)
+    times = [doc.to_dict() for doc in visits_ref.stream()]
 
     return times
-
 
 if __name__ == "__main__":
     # This is used when running locally only. When deploying to Google App
