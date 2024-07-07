@@ -103,6 +103,8 @@ Um sicherzustellen, dass die Main-Class im Manifest des JAR-Files enthalten ist,
 ```
 
 ## Java-Klasse erstellen
+Entfernen Sie das `src/test`-Verzeichnis sowie die Datei `App.java` im Verzeichnis `src/main/java/com/example`.
+
 Erstellen Sie eine neue Java-Klasse `FirestoreUploader` unter `src/main/java/com/example`.
 
 ```java
@@ -128,11 +130,6 @@ private final Firestore db;
  }
 
  public static void main(String[] args) throws ExecutionException, InterruptedException {
-     if (args.length < 1) {
-         System.out.println("Usage: java -jar firestore-uploader.jar");
-         System.exit(1);
-     }
-
      FirestoreUploader uploader = new FirestoreUploader();
      uploader.uploadRandomData();
  }
@@ -176,3 +173,6 @@ Führen Sie das Tool aus:
 ```sh
 java -jar target/firestore-uploader-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
+
+## Prüfen des Ergebnisses
+Gehen Sie zurück in die Cloud-Firestore-Konsole, wo Sie zuvor die Datenbank angelegt haben. Sie sollten nun eine neue Collection "addresses" mit einem neuen Dokument sehen.
