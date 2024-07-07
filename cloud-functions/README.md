@@ -49,7 +49,9 @@ Fügen Sie danach in der POM folgende `dependency` und folgende `build`-Config h
 ```
 
 ## Main-Klasse hinzufügen
-Legen sie im Verzeichnis `src/main/java/functions` eine neue Datei `HelloWorld.java` mit folgendem Code ein:
+Entfernen Sie das `src/test`-Verzeichnis sowie die Datei `App.java` im Verzeichnis `src/main/java/com/example`.
+
+Legen Sie ein neues Verzeichnis `src/main/java/functions` an und darin eine neue Datei `HelloWorld.java` mit folgendem Code ein:
 
 ```java
 
