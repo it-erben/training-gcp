@@ -10,6 +10,10 @@ Gehen Sie zur [Firebase-Konsole](https://console.firebase.google.com/u/0/) und b
 
 ![img.png](pictures/firebase-create-project.png)
 
+Geben Sie an, dass Sie das Projekt mit einem bestehenden GCP-Projekt verbinden möchten.
+
+![firebase-add-to-existing-project.png](pictures/firebase-add-to-existing-project.png)
+
 Klicken Sie auf das Eingabefeld für den Projektnamen und wählen Sie das GCP-Projekt aus, mit dem Sie Firebase verknüpfen wollen.
 
 ![img.png](pictures/firebase-select-project-name.png)
