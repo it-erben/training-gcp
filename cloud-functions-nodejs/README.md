@@ -72,7 +72,7 @@ Um die Funktion in der Google Cloud zu deployen, führen Sie zuletzt folgende Be
 ```shell
 gcloud auth login
 gcloud config set project YOUR_PROJECT_ID
-gcloud functions deploy nodejs-http-function \
+gcloud functions deploy my-nodejs-http-function \
     --gen2 \
     --entry-point=helloWorld \
     --runtime=nodejs18 \
@@ -89,7 +89,7 @@ Wenn die Funktion erfolgreich deployt wurde, erhalten Sie die folgende Ausgabe:
 ```
 state: ACTIVE
 updateTime: '2024-07-03T13:41:15.155204213Z'
-url: https://europe-west1-my-project.cloudfunctions.net/nodejs-http-function
+url: https://europe-west1-my-project.cloudfunctions.net/my-nodejs-http-function
 ```
 
 Rufen Sie die angegebene URL im Browser auf, um das Ergebnis zu prüfen. Sie sollten “Hello World!” sehen.
