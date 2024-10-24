@@ -14,11 +14,14 @@ gsutil mb gs://$BUCKET_NAME
 ## Erstellen eines Service Accounts
 
 Erstellen Sie einen neuen Service Account mit einem aussagekräftigen Namen.
-Damit Sie in den folgenden Schritten immer den richtigen Projektnamen nutzen, sollten Sie ihn in einer Variable speichern. 
+Damit Sie in den folgenden Schritten immer den richtigen Projektnamen nutzen, sollten Sie ihn in einer Variable speichern. Bitte denken Sie daran, den richtigen Projektnamen einzutragen!
 
 ```sh
 export PROJECT_ID="IHRE_PROJEKT_ID"
+```
 
+Danach können Sie den Account anlegen
+```sh
 gcloud iam service-accounts create gce-gcs-service-account \
    --description="Service account for accessing GCS" \
    --display-name="My Service Account"
