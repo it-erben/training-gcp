@@ -3,7 +3,7 @@
 # Set variables
 ZONE="europe-west1-b"
 MACHINE_TYPE="f1-micro" # Free tier eligible machine type
-IMAGE_FAMILY="debian-10"
+IMAGE_FAMILY="debian-11"
 IMAGE_PROJECT="debian-cloud"
 
 # Function to create a VM
