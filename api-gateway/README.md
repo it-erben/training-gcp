@@ -59,11 +59,12 @@ paths:
             type: string
 ```
 
-Erstellen Sie nun die eigentliche API. Der Backend-Service-Account muss entsprechend angepasst werden.
+Erstellen Sie nun die eigentliche API. Für den Backend-Service-Account brauchen wir die Projektnummer, die wir hier mit einem gcloud-Befehl auslesen.
 ```shell
+export PROJECT_NUMBER=$(gcloud projects describe $(gcloud config get-value project) --format="value(projectNumber)")
 gcloud api-gateway api-configs create my-config \
   --api=helloworldapi --openapi-spec=api.yaml \
-  --backend-auth-service-account=467826272050-compute@developer.gserviceaccount.com
+  --backend-auth-service-account=${PROJECT_NUMBER}-compute@developer.gserviceaccount.com
 ```
 
 ## Schritt 5: Gateway bereitstellen
