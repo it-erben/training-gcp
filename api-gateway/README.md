@@ -80,8 +80,7 @@ gcloud api-gateway gateways create my-gateway \
 Danach lässt sich die URL wie folgt auslesen:
 
 ```shell
-gcloud api-gateway gateways describe my-gateway --location europe-wes
-t1
+gcloud api-gateway gateways describe my-gateway --location europe-west1
 ```
 In diesem Fall muss noch `/hello` an das Ende angehängt werden.
 
