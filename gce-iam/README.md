@@ -56,7 +56,7 @@ Um nun einen Test durchführen zu können, verbinden wir uns per SSH mit der VM:
 gcloud compute ssh my-vm --zone=europe-west1-b
 ```
 
-## Dateien hochladen zu GCS
+## Mit GCS verbinden
 
 Zuletzt listen wir alle Buckets auf um zu testen, dass die Instanz Vollberechtigung auf Google Cloud Storage hat.
 
