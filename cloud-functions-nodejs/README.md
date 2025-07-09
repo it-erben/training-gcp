@@ -60,18 +60,16 @@ Fügen Sie außerdem ein Startskript in Ihre package.json-Datei hinzu, um die Fu
 Um zu testen, ob die Funktion korrekt aufgesetzt ist, können Sie im Projektverzeichnis folgenden Befehl ausführen:
 
 ```shell
-npm start
+npm install && npm start
 ```
 
 Besuchen Sie in Ihrem Browser http://localhost:8080, um das Ergebnis der Funktion zu sehen. Sie sollten die Nachricht “Hello World!” erhalten.
 
 ## Funktion deployen
 
-Um die Funktion in der Google Cloud zu deployen, führen Sie zuletzt folgende Befehle aus. Bitte ersetzen Sie die Projekt-ID passend.
+Um die Funktion in der Google Cloud zu deployen, führen Sie zuletzt folgende Befehle aus.
 
 ```shell
-gcloud auth login
-gcloud config set project YOUR_PROJECT_ID
 gcloud functions deploy my-nodejs-http-function \
     --gen2 \
     --entry-point=helloWorld \

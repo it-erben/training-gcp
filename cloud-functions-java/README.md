@@ -86,11 +86,9 @@ Sie werden aufgefordert, die Funktion im Browser aufzurufen:
 
 ## Funktion deployen
 
-Um die Funktion in der Google Cloud zu deployen, führen Sie zuletzt folgende Befehle aus. Bitte ersetzen Sie die Projekt-ID passend.
+Um die Funktion in der Google Cloud zu deployen, führen Sie zuletzt folgende Befehle aus.
 
 ```shell
-gcloud auth login
-gcloud config set project YOUR_PROJECT_ID
 gcloud functions deploy java-http-function \
     --gen2 \
     --entry-point=functions.HelloWorld \

@@ -7,12 +7,6 @@ In dieser Übungsaufgabe werden Sie ein Java-CLI-Tool entwickeln, das eine CSV-D
 Es wird vorausgesetzt, dass bereits ein GCP-Projekt vorhanden ist.
 
 ## Schritt 0: Storage Bucket, Dataset und Tabelle erstellen
-Stellen Sie sicher, dass Sie die Google Cloud SDK installiert haben und sich authentifiziert haben:
-
-```sh
-gcloud auth login
-gcloud config set project YOUR_PROJECT_ID
-```
 
 Erstellen Sie ein Dataset mit dem Namen `spotify`:
 
