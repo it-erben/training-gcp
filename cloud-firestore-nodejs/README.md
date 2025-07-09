@@ -7,9 +7,6 @@ In dieser Übungsaufgabe werden Sie ein CLI-Tool entwickeln, das mithilfe der Da
 Sollten Sie noch kein Firebase-Projekt für Ihr aktuelles GCP-Projekt haben, legen Sie wie folgt eines an:
 
 Gehen Sie zur [Firebase-Konsole](https://console.firebase.google.com/u/0/) und beginnen Sie mit der Einrichtung eines neuen Projekts.
-
-![img.png](pictures/firebase-create-project.png)
-
 Geben Sie an, dass Sie das Projekt mit einem bestehenden GCP-Projekt verbinden möchten.
 
 ![firebase-add-to-existing-project.png](pictures/firebase-add-to-existing-project.png)
