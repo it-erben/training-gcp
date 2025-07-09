@@ -52,13 +52,8 @@ const bucketName = process.argv[3];
 uploadFile(filePath, bucketName).catch(console.error);
 ```
 
-## Schritt 4: Google Cloud SDK Konfiguration
 
-Stellen Sie sicher, dass Sie die Google Cloud SDK installiert haben und sich authentifiziert haben:
-
-`gcloud auth login` # gegebenenfalls noch: gcloud config set project YOUR_PROJECT_ID
-
-## Schritt 5: Ausführung des Tools
+## Schritt 4: Ausführung des Tools
 
 Führen Sie das Tool aus, indem Sie das Node.js-Skript ausführen und die Datei sowie den Bucket-Namen als Argumente übergeben.
 

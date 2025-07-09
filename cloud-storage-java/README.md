@@ -112,15 +112,7 @@ Erstellen Sie eine neue Java-Klasse `GcsUploader` unter `src/main/java/com/examp
    }
    ```
 
-## Schritt 5: Google Cloud SDK Konfiguration:**
-Stellen Sie sicher, dass Sie die Google Cloud SDK installiert haben und sich authentifiziert haben:
-
-```sh
-gcloud auth login
-# gegebenenfalls noch: gcloud config set project YOUR_PROJECT_ID
-```
-
-## Schritt 6: Erstellung des Fat JARs
+## Schritt 5: Erstellung des Fat JARs
 Kompilieren und erstellen Sie das Fat JAR-File.
 
 ```sh
@@ -129,7 +121,7 @@ mvn clean package
 
 Das Fat JAR-File befindet sich im `target`-Verzeichnis und heißt `gcs-uploader-1.0-SNAPSHOT-jar-with-dependencies.jar`.
 
-## Schritt 7: Ausführung des Tools
+## Schritt 6: Ausführung des Tools
 Führen Sie das Tool aus, indem Sie das Fat JAR-File ausführen und die Datei und den Bucket-Namen als Argumente übergeben.
 
 ```sh

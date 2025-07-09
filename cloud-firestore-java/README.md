@@ -162,15 +162,6 @@ mvn clean package
 
 Das Fat JAR-File befindet sich im `target`-Verzeichnis und heißt `firestore-uploader-1.0-SNAPSHOT-jar-with-dependencies.jar`.
 
-## Google Cloud SDK Konfiguration
-Stellen Sie sicher, dass Sie die Google Cloud SDK installiert haben und sich authentifiziert haben.
-Die Projekt-ID muss jene des GCP-Projektes sein.
-
-```sh
-gcloud auth login
-gcloud config set project YOUR_PROJECT_ID
-```
-
 ## Ausführung des Tools
 Führen Sie das Tool aus:
 
