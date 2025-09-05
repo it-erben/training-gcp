@@ -60,22 +60,22 @@ Bitte ersetze die Platzhalter vor dem Ausführen der Query. Beachte bitte die se
 
 ```sql
 SELECT Country, COUNT(*) AS customer_count
-FROM `{GCP_PROJEKT_NAME}.{DATASOURCE_NAME}.{TABLE_NAME}`
+FROM `GCP_PROJEKT_NAME.DATASOURCE_NAME.TABLE_NAME`
 GROUP BY Country
 ORDER BY customer_count DESC
 LIMIT 5;
 ```
 
 ```sql
-SELECT EXTRACT(YEAR FROM DATE(`Subscription Date`)) AS year, COUNT(*) AS registrations
-FROM `{GCP_PROJEKT_NAME}.{DATASOURCE_NAME}.{TABLE_NAME}`
+SELECT EXTRACT(YEAR FROM DATE(`Subscription_Date`)) AS year, COUNT(*) AS registrations
+FROM `GCP_PROJEKT_NAME.DATASOURCE_NAME.TABLE_NAME`
 GROUP BY year
 ORDER BY year;
 ```
 
 ```sql
 SELECT REGEXP_EXTRACT(Email, r'@(.+)$') AS domain, COUNT(*) AS count
-FROM `{GCP_PROJEKT_NAME}.{DATASOURCE_NAME}.{TABLE_NAME}`
+FROM `GCP_PROJEKT_NAME.DATASOURCE_NAME.TABLE_NAME`
 GROUP BY domain
 ORDER BY count DESC
 LIMIT 10;
@@ -86,16 +86,16 @@ SELECT
   Country,
   COUNT(*) AS customer_count,
   ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2) AS percentage
-FROM `{GCP_PROJEKT_NAME}.{DATASOURCE_NAME}.{TABLE_NAME}`
+FROM `GCP_PROJEKT_NAME.DATASOURCE_NAME.TABLE_NAME`
 GROUP BY Country
 ORDER BY customer_count DESC;
 ```
 
 ```sql
-SELECT `First Name`, `Last Name`, `Phone 1`
-FROM `{GCP_PROJEKT_NAME}.{DATASOURCE_NAME}.{TABLE_NAME}`
-WHERE `Phone 1` LIKE '+%'
-ORDER BY `Phone 1`;
+SELECT `First_Name`, `Last_Name`, `Phone_1`
+FROM `GCP_PROJEKT_NAME.DATASOURCE_NAME.TABLE_NAME`
+WHERE `Phone_1` LIKE '+%'
+ORDER BY `Phone_1`;
 ```
 
 Viel Spaß!
