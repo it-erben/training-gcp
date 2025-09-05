@@ -28,7 +28,8 @@ Wähle den manuellen, externen Import
 
 ---
 
-Wähle den Bucket und die Datei aus. Erstelle über das Menü ein Dataset namens "myds" und eine Tabelle namens "customers"
+Wähle den Bucket und die Datei aus. Erstelle über das Menü ein Dataset namens "myds" und eine Tabelle namens "customers".
+Das Dataset muss in der EU liegen!
 
 ![img.png](pictures/004-form.png)
 
