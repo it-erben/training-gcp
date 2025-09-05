@@ -39,7 +39,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/") # <-- Diese Zeile fehlt!
+@app.route("/")
 def hello():
     return "Hello from Google Cloud Build!", 200
 
