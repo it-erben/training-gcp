@@ -58,32 +58,32 @@ lint:terraform:
     - terraform init -backend=false -input=false
     - terraform validate
 
-test:node_api_gateway:
-  stage: test
+verify:node_api_gateway:
+  stage: verify
   image: node:18
   script:
     - cd api-gateway
     - npm install --no-audit --no-fund
     - npm test
 
-test:node_cloud_logging:
-  stage: test
+verify:node_cloud_logging:
+  stage: verify
   image: node:18
   script:
     - cd cloud-logging
     - npm install --no-audit --no-fund
     - npm test
 
-test:python_step01:
-  stage: test
+verify:python_step01:
+  stage: verify
   image: python:3.11
   script:
     - cd appengine/step01
     - python -m pip install -r requirements.txt pytest
     - pytest
 
-test:python_step02:
-  stage: test
+verify:python_step02:
+  stage: verify
   image: python:3.11
   variables:
     FIRESTORE_EMULATOR_HOST: "firestore:8080"
