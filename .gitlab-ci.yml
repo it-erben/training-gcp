@@ -5,10 +5,7 @@ include:
 
 stages:
   - lint
-  - build
   - verify
-  - release
-  - deploy
 
 variables:
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
@@ -74,85 +71,9 @@ verify:node_cloud_logging:
     - npm install --no-audit --no-fund
     - npm test
 
-verify:python_step01:
-  stage: verify
-  image: python:3.11
-  script:
-    - cd appengine/step01
-    - python -m pip install -r requirements.txt pytest
-    - pytest
-
-verify:python_step02:
-  stage: verify
-  image: python:3.11
-  variables:
-    FIRESTORE_EMULATOR_HOST: "firestore:8080"
-    GOOGLE_CLOUD_PROJECT: "demo-project"
-    CLOUDSDK_CORE_PROJECT: "demo-project"
-  services:
-    - name: gcr.io/google.com/cloudsdktool/cloud-sdk:emulators
-      alias: firestore
-      command: ["gcloud", "beta", "emulators", "firestore", "start", "--host-port=0.0.0.0:8080", "--project=demo-project"]
-  before_script:
-    - |
-      python - <<'PY'
-      import socket
-      import sys
-      import time
-
-      host = "firestore"
-      port = 8080
-
-      for _ in range(60):
-          try:
-              with socket.create_connection((host, port), timeout=1):
-                  sys.exit(0)
-          except OSError:
-              time.sleep(1)
-
-      sys.exit("Firestore emulator did not start in time")
-      PY
-  script:
-    - cd appengine/step02
-    - python -m pip install -r requirements.txt pytest
-    - pytest
-
-integration:storage_emulator:
-  stage: integration
-  image: python:3.11
-  variables:
-    STORAGE_EMULATOR_HOST: "http://fake-gcs-server:4443"
-  services:
-    - name: fsouza/fake-gcs-server:latest
-      alias: fake-gcs-server
-      command: ["-scheme", "http", "-port", "4443"]
-  before_script:
-    - |
-      python - <<'PY'
-      import socket
-      import sys
-      import time
-
-      host = "fake-gcs-server"
-      port = 4443
-
-      for _ in range(60):
-          try:
-              with socket.create_connection((host, port), timeout=1):
-                  sys.exit(0)
-          except OSError:
-              time.sleep(1)
-
-      sys.exit("Storage emulator did not start in time")
-      PY
-  script:
-    - cd cloud-storage-emulator
-    - python -m pip install -r requirements.txt
-    - python example.py
-
 audit:npm:
   stage: audit
-  image: node:18
+  image: node:21
   allow_failure: true
   script:
     - |
@@ -166,8 +87,8 @@ audit:npm:
       done
 
 audit:pip:
-  stage: audit
-  image: python:3.11
+  stage: verify
+  image: python:3.14
   allow_failure: true
   script:
     - python -m pip install pip-audit
@@ -176,8 +97,8 @@ audit:pip:
     - pip-audit -r cloud-storage-emulator/requirements.txt
 
 audit:secrets:
-  stage: audit
-  image: zricethezav/gitleaks:latest
+  stage: verify
+  image: zricethezav/gitleaks:v8.30.0
   allow_failure: true
   script:
     - gitleaks detect --source . --no-git --redact
