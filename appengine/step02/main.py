@@ -1,11 +1,26 @@
 import datetime
-from flask import Flask, render_template
+import os
+
 import firebase_admin
 from firebase_admin import firestore
+from flask import Flask, render_template
+from google.auth.credentials import AnonymousCredentials
 
-# Initialize Firestore with Firebase credentials
-firebase_admin.initialize_app()
-firestore_client = firestore.client()
+
+def init_firestore_client():
+    if not firebase_admin._apps:
+        if os.getenv("FIRESTORE_EMULATOR_HOST"):
+            firebase_admin.initialize_app(
+                credential=AnonymousCredentials(),
+                options={"projectId": os.getenv("GOOGLE_CLOUD_PROJECT", "demo-project")},
+            )
+        else:
+            firebase_admin.initialize_app()
+
+    return firestore.client()
+
+
+firestore_client = init_firestore_client()
 
 app = Flask(__name__)
 
@@ -19,15 +34,22 @@ def root():
 
     return render_template("index.html", times=times)
 
+
 def store_time(dt):
     doc_ref = firestore_client.collection("visits").document()
     doc_ref.set({"timestamp": dt})
 
+
 def fetch_times(limit):
-    visits_ref = firestore_client.collection("visits").order_by("timestamp", direction=firestore.Query.DESCENDING).limit(limit)
+    visits_ref = (
+        firestore_client.collection("visits")
+        .order_by("timestamp", direction=firestore.Query.DESCENDING)
+        .limit(limit)
+    )
     times = [doc.to_dict() for doc in visits_ref.stream()]
 
     return times
+
 
 if __name__ == "__main__":
     # This is used when running locally only. When deploying to Google App

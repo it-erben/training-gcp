@@ -6,6 +6,7 @@
 import os
 import random
 import string
+
 from google.auth.credentials import AnonymousCredentials
 from google.cloud import storage
 
@@ -20,16 +21,20 @@ client = storage.Client(
     project="test",
 )
 
+
 # Generate a random string for bucket and file names
 def random_name(prefix, length=8):
-    return prefix + "-" + "".join(random.choices(string.ascii_lowercase + string.digits, k=length))
+    return prefix + "-" + "".join(
+        random.choices(string.ascii_lowercase + string.digits, k=length)
+    )
+
 
 # Generate random file content
 def random_content(size=100):
     return os.urandom(size)
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     for _ in range(NUM_BUCKETS):
         bucket_name = random_name("demo-bucket")
         bucket = client.bucket(bucket_name)
