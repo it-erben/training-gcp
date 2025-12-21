@@ -1,0 +1,183 @@
+include:
+  - component: "$CI_SERVER_FQDN/it-erben/components/linters/lychee-lint@1.2.0"
+  - component: "$CI_SERVER_FQDN/it-erben/components/linters/yaml-lint@1.2.0"
+  - component: "$CI_SERVER_FQDN/it-erben/components/linters/markdown-lint@1.2.0"
+
+stages:
+  - lint
+  - build
+  - verify
+  - release
+  - deploy
+
+variables:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PIP_NO_CACHE_DIR: "1"
+
+lint:js:
+  stage: lint
+  image: node:18
+  script:
+    - |
+      set -euo pipefail
+      for dir in api-gateway cloud-logging; do
+        (
+          cd "$dir"
+          npm install --no-audit --no-fund
+          npm run lint
+          npm run format:check
+        )
+      done
+
+lint:python:
+  stage: lint
+  image: python:3.11
+  script:
+    - python -m pip install ruff black
+    - ruff check appengine cloud-storage-emulator
+    - black --check appengine cloud-storage-emulator
+
+lint:shellcheck:
+  stage: lint
+  image: koalaman/shellcheck:stable
+  script:
+    - shellcheck cloud-metrics/setup.sh cloud-loadbalancer/setup.sh
+
+lint:shfmt:
+  stage: lint
+  image: mvdan/shfmt:v3.7.0
+  script:
+    - shfmt -i 2 -ci -d cloud-metrics/setup.sh cloud-loadbalancer/setup.sh
+
+lint:terraform:
+  stage: lint
+  image: hashicorp/terraform:1.6.6
+  script:
+    - cd cloud-loadbalancer
+    - terraform fmt -check -diff
+    - terraform init -backend=false -input=false
+    - terraform validate
+
+test:node_api_gateway:
+  stage: test
+  image: node:18
+  script:
+    - cd api-gateway
+    - npm install --no-audit --no-fund
+    - npm test
+
+test:node_cloud_logging:
+  stage: test
+  image: node:18
+  script:
+    - cd cloud-logging
+    - npm install --no-audit --no-fund
+    - npm test
+
+test:python_step01:
+  stage: test
+  image: python:3.11
+  script:
+    - cd appengine/step01
+    - python -m pip install -r requirements.txt pytest
+    - pytest
+
+test:python_step02:
+  stage: test
+  image: python:3.11
+  variables:
+    FIRESTORE_EMULATOR_HOST: "firestore:8080"
+    GOOGLE_CLOUD_PROJECT: "demo-project"
+    CLOUDSDK_CORE_PROJECT: "demo-project"
+  services:
+    - name: gcr.io/google.com/cloudsdktool/cloud-sdk:emulators
+      alias: firestore
+      command: ["gcloud", "beta", "emulators", "firestore", "start", "--host-port=0.0.0.0:8080", "--project=demo-project"]
+  before_script:
+    - |
+      python - <<'PY'
+      import socket
+      import sys
+      import time
+
+      host = "firestore"
+      port = 8080
+
+      for _ in range(60):
+          try:
+              with socket.create_connection((host, port), timeout=1):
+                  sys.exit(0)
+          except OSError:
+              time.sleep(1)
+
+      sys.exit("Firestore emulator did not start in time")
+      PY
+  script:
+    - cd appengine/step02
+    - python -m pip install -r requirements.txt pytest
+    - pytest
+
+integration:storage_emulator:
+  stage: integration
+  image: python:3.11
+  variables:
+    STORAGE_EMULATOR_HOST: "http://fake-gcs-server:4443"
+  services:
+    - name: fsouza/fake-gcs-server:latest
+      alias: fake-gcs-server
+      command: ["-scheme", "http", "-port", "4443"]
+  before_script:
+    - |
+      python - <<'PY'
+      import socket
+      import sys
+      import time
+
+      host = "fake-gcs-server"
+      port = 4443
+
+      for _ in range(60):
+          try:
+              with socket.create_connection((host, port), timeout=1):
+                  sys.exit(0)
+          except OSError:
+              time.sleep(1)
+
+      sys.exit("Storage emulator did not start in time")
+      PY
+  script:
+    - cd cloud-storage-emulator
+    - python -m pip install -r requirements.txt
+    - python example.py
+
+audit:npm:
+  stage: audit
+  image: node:18
+  allow_failure: true
+  script:
+    - |
+      set -euo pipefail
+      for dir in api-gateway cloud-logging; do
+        (
+          cd "$dir"
+          npm install --no-audit --no-fund
+          npm audit --omit=dev
+        )
+      done
+
+audit:pip:
+  stage: audit
+  image: python:3.11
+  allow_failure: true
+  script:
+    - python -m pip install pip-audit
+    - pip-audit -r appengine/step01/requirements.txt
+    - pip-audit -r appengine/step02/requirements.txt
+    - pip-audit -r cloud-storage-emulator/requirements.txt
+
+audit:secrets:
+  stage: audit
+  image: zricethezav/gitleaks:latest
+  allow_failure: true
+  script:
+    - gitleaks detect --source . --no-git --redact
