@@ -29,7 +29,6 @@ Erstellen Sie eine neue Datei gcsUploader.js im Projektverzeichnis.
 Fügen Sie den folgenden Code in die Datei ein:
 
 ```javascript
-
 const { Storage } = require('@google-cloud/storage');
 const path = require('path');
 const fs = require('fs');
@@ -38,11 +37,11 @@ async function uploadFile(filePath, bucketName) {
     const storage = new Storage();
     const bucket = storage.bucket(bucketName);
     const fileName = path.basename(filePath);
-    
+
     await bucket.upload(filePath, {
         destination: fileName,
     });
-    
+
     console.log(`File ${filePath} uploaded to bucket ${bucketName}`);
 }
 

@@ -88,48 +88,48 @@ Verzeichnis `src/main/java/com/example`.
 Erstellen Sie eine neue Java-Klasse `GcsUploader` unter
 `src/main/java/com/example`.
 
-   ```java
-   package com.example;
+```java
+package com.example;
 
-   import com.google.cloud.storage.BlobInfo;
-   import com.google.cloud.storage.Storage;
-   import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 
-   import java.io.File;
-   import java.io.IOException;
-   import java.nio.file.Files;
-   import java.nio.file.Paths;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-   public class GcsUploader {
-       public static void main(String[] args) throws IOException {
-           if (args.length < 2) {
-               System.out.println(
-                   "Usage: java -jar gcs-uploader.jar <file-path> "
-                       + "<bucket-name>");
-               System.exit(1);
-           }
+public class GcsUploader {
+    public static void main(String[] args) throws IOException {
+        if (args.length < 2) {
+            System.out.println(
+                "Usage: java -jar gcs-uploader.jar <file-path> "
+                    + "<bucket-name>");
+            System.exit(1);
+        }
 
-           String filePath = args[0];
-           String bucketName = args[1];
+        String filePath = args[0];
+        String bucketName = args[1];
 
-           uploadFile(filePath, bucketName);
-       }
+        uploadFile(filePath, bucketName);
+    }
 
-       public static void uploadFile(String filePath, String bucketName)
-           throws IOException {
-           Storage storage = StorageOptions.getDefaultInstance().getService();
+    public static void uploadFile(String filePath, String bucketName)
+        throws IOException {
+        Storage storage = StorageOptions.getDefaultInstance().getService();
 
-           File file = new File(filePath);
-           BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, file.getName())
-               .build();
+        File file = new File(filePath);
+        BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, file.getName())
+            .build();
 
-           storage.create(blobInfo, Files.readAllBytes(Paths.get(filePath)));
+        storage.create(blobInfo, Files.readAllBytes(Paths.get(filePath)));
 
-           System.out.println(
-               "File " + filePath + " uploaded to bucket " + bucketName);
-       }
-   }
-   ```
+        System.out.println(
+            "File " + filePath + " uploaded to bucket " + bucketName);
+    }
+}
+```
 
 ## Schritt 5: Erstellung des Fat JARs
 

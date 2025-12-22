@@ -1,4 +1,3 @@
-
 # Google BigQuery SDK in Java
 
 ## Ziel
@@ -165,9 +164,9 @@ public class BqUploader {
             JobInfo.newBuilder(loadConfig)
                 .setJobId(JobId.of(UUID.randomUUID().toString()))
                 .build());
-        
+
         job = job.waitFor();
-        
+
         if (job.isDone()) {
             System.out.println("CSV file successfully loaded to BigQuery");
         } else {

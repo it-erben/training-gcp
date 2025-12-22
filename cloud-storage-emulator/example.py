@@ -24,8 +24,10 @@ client = storage.Client(
 
 # Generate a random string for bucket and file names
 def random_name(prefix, length=8):
-    return prefix + "-" + "".join(
-        random.choices(string.ascii_lowercase + string.digits, k=length)
+    return (
+        prefix
+        + "-"
+        + "".join(random.choices(string.ascii_lowercase + string.digits, k=length))
     )
 
 

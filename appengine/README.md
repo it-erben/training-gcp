@@ -59,16 +59,18 @@ def fetch_times(limit):
 ```
 
 ---
+
 geändert in [index.html](step02/templates/index.html)
 
 ```html
 <h2>Last 10 visits</h2>
 {% for time in times %}
-  <p>{{ time['timestamp'] }}</p>
+<p>{{ time['timestamp'] }}</p>
 {% endfor %}
 ```
 
 ---
+
 geändert in [requirements.txt](./step02/requirements.txt)
 
 ```txt
@@ -77,6 +79,7 @@ firebase-admin==6.5.0
 ```
 
 ---
+
 Anschließend die Anwendung mit `gcloud app deploy` aktualisieren.
 
 In dieser Version ist die Anwendung nun fähig, alle Seitenaufrufe in einer

@@ -1,7 +1,7 @@
 const assert = require('assert');
-const {spawn} = require('child_process');
+const { spawn } = require('child_process');
 const path = require('path');
-const {request} = require('gaxios');
+const { request } = require('gaxios');
 const waitPort = require('wait-port');
 
 const PORT = 8080;
@@ -17,9 +17,7 @@ describe('helloGET', function () {
             '..',
             'node_modules',
             '.bin',
-            process.platform === 'win32'
-                ? 'functions-framework.cmd'
-                : 'functions-framework'
+            process.platform === 'win32' ? 'functions-framework.cmd' : 'functions-framework',
         );
 
         proc = spawn(bin, ['--target', 'helloGET', '--port', String(PORT)], {

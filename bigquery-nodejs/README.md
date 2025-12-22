@@ -84,7 +84,7 @@ async function uploadCsvToBigQuery(bucketName, filename) {
 
     const metadata = {
         sourceFormat: 'CSV',
-        skipLeadingRows: 1
+        skipLeadingRows: 1,
     };
 
     // Job-Konfiguration für das Hochladen der CSV-Datei
@@ -96,12 +96,11 @@ async function uploadCsvToBigQuery(bucketName, filename) {
     console.log(`Job ${job.id} gestartet.`);
 
     // Überprüfen, ob der Job abgeschlossen wurde
-    const jobStatus = job.status
+    const jobStatus = job.status;
     if (jobStatus.state === 'DONE') {
         console.log('CSV-Datei erfolgreich nach BigQuery geladen.');
     } else {
-        console.error(
-            `Fehler beim Laden der Datei: ${jobStatus.errorResult.message}`);
+        console.error(`Fehler beim Laden der Datei: ${jobStatus.errorResult.message}`);
     }
 }
 

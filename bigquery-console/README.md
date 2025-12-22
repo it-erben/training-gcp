@@ -92,7 +92,7 @@ LIMIT 10;
 ```
 
 ```sql
-SELECT 
+SELECT
   Country,
   COUNT(*) AS customer_count,
   ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2) AS percentage

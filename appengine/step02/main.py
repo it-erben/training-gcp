@@ -12,7 +12,9 @@ def init_firestore_client():
         if os.getenv("FIRESTORE_EMULATOR_HOST"):
             firebase_admin.initialize_app(
                 credential=AnonymousCredentials(),
-                options={"projectId": os.getenv("GOOGLE_CLOUD_PROJECT", "demo-project")},
+                options={
+                    "projectId": os.getenv("GOOGLE_CLOUD_PROJECT", "demo-project")
+                },
             )
         else:
             firebase_admin.initialize_app()
@@ -23,6 +25,7 @@ def init_firestore_client():
 firestore_client = init_firestore_client()
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def root():

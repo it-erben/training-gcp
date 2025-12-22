@@ -83,26 +83,26 @@ Lege eine Datei `cloudbuild.yaml` mit folgenden Inhalt an:
 
 ```yaml
 substitutions:
-  _REGION: europe-west1
-  _REPO: my-python-repo
-  _IMAGE: python-demo
-  _TAG: latest
+    _REGION: europe-west1
+    _REPO: my-python-repo
+    _IMAGE: python-demo
+    _TAG: latest
 
 steps:
-  - name: "gcr.io/cloud-builders/docker"
-    args:
-      - build
-      - -t
-      - $_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$_TAG
-      - .
+    - name: 'gcr.io/cloud-builders/docker'
+      args:
+          - build
+          - -t
+          - $_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$_TAG
+          - .
 
-  - name: "gcr.io/cloud-builders/docker"
-    args:
-      - push
-      - $_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$_TAG
+    - name: 'gcr.io/cloud-builders/docker'
+      args:
+          - push
+          - $_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$_TAG
 
 images:
-  - $_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$_TAG
+    - $_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$_TAG
 ```
 
 Übermittle dann den Build-Auftrag an GCP mit folgendem Kommando:

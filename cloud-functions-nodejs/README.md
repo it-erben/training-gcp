@@ -54,16 +54,16 @@ Funktion lokal auszuführen:
 
 ```json
 {
-  "name": "gcf",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "start": "functions-framework --target=helloWorld"
-  },
-  "dependencies": {
-    "@google-cloud/functions-framework": "^3.1.1"
-  }
+    "name": "gcf",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "functions-framework --target=helloWorld"
+    },
+    "dependencies": {
+        "@google-cloud/functions-framework": "^3.1.1"
+    }
 }
 ```
 

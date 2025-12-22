@@ -59,7 +59,7 @@ gcloud compute instances create my-vm \
    --service-account \
    gce-gcs-service-account@${PROJECT_ID}.iam.gserviceaccount.com \
    --scopes=https://www.googleapis.com/auth/cloud-platform
-   ```
+```
 
 ## Verbinden per SSH
 

@@ -33,7 +33,7 @@ gcloud api-gateway apis create helloworldapi
 Informationen über die neue API lassen sich so anzeigen:
 
 ```shell
-gcloud api-gateway apis describe helloworldapi 
+gcloud api-gateway apis describe helloworldapi
 ```
 
 ## Schritt 4: API Konfigurieren
@@ -45,25 +45,25 @@ daran, den GCF-Endpunkt einzutragen, der in Schritt 2 erzeugt wurde.
 # openapi2-functions.yaml
 swagger: '2.0'
 info:
-  title: myapi optional-string
-  description: Sample API on API Gateway with a Google Cloud Functions backend
-  version: 1.0.0
+    title: myapi optional-string
+    description: Sample API on API Gateway with a Google Cloud Functions backend
+    version: 1.0.0
 schemes:
-  - https
+    - https
 produces:
-  - application/json
+    - application/json
 paths:
-  /hello:
-    get:
-      summary: Greet a user
-      operationId: hello
-      x-google-backend:
-        address: https://REGION-PROJECT.cloudfunctions.net/nodejs-http-function
-      responses:
-        '200':
-          description: A successful response
-          schema:
-            type: string
+    /hello:
+        get:
+            summary: Greet a user
+            operationId: hello
+            x-google-backend:
+                address: https://REGION-PROJECT.cloudfunctions.net/nodejs-http-function
+            responses:
+                '200':
+                    description: A successful response
+                    schema:
+                        type: string
 ```
 
 Erstellen Sie nun die eigentliche API. Für den Backend-Service-Account brauchen
