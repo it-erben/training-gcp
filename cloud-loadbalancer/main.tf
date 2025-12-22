@@ -38,15 +38,15 @@ resource "google_compute_firewall" "allow_http" {
     ports    = ["80"]
   }
 
-  target_tags = ["nginx"]
-  direction   = "INGRESS"
+  target_tags   = ["nginx"]
+  direction     = "INGRESS"
   source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_instance_group" "nginx_group" {
-  name        = "nginx-group"
-  zone        = var.zone
-  instances   = google_compute_instance.nginx_vm[*].self_link
+  name      = "nginx-group"
+  zone      = var.zone
+  instances = google_compute_instance.nginx_vm[*].self_link
   named_port {
     name = "http"
     port = 80
@@ -54,10 +54,10 @@ resource "google_compute_instance_group" "nginx_group" {
 }
 
 resource "google_compute_health_check" "http_health_check" {
-  name               = "http-health-check"
-  check_interval_sec = 5
-  timeout_sec        = 5
-  healthy_threshold  = 2
+  name                = "http-health-check"
+  check_interval_sec  = 5
+  timeout_sec         = 5
+  healthy_threshold   = 2
   unhealthy_threshold = 3
 
   http_health_check {
@@ -66,11 +66,11 @@ resource "google_compute_health_check" "http_health_check" {
 }
 
 resource "google_compute_backend_service" "default" {
-  name                            = "nginx-backend"
-  protocol                        = "HTTP"
-  port_name                       = "http"
-  timeout_sec                     = 10
-  health_checks                   = [google_compute_health_check.http_health_check.id]
+  name          = "nginx-backend"
+  protocol      = "HTTP"
+  port_name     = "http"
+  timeout_sec   = 10
+  health_checks = [google_compute_health_check.http_health_check.id]
   backend {
     group = google_compute_instance_group.nginx_group.self_link
   }
@@ -82,7 +82,7 @@ resource "google_compute_url_map" "default" {
 }
 
 resource "google_compute_target_http_proxy" "default" {
-  name   = "http-proxy"
+  name    = "http-proxy"
   url_map = google_compute_url_map.default.self_link
 }
 

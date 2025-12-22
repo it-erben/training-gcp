@@ -1,10 +1,11 @@
-#!/usr/bin/env sh
-set -euxo
+#!/usr/bin/env bash
+set -euo pipefail
+set -x
 
 terraform init
 
-export PROJECT_ID
 PROJECT_ID="$(gcloud config get-value project)"
+export PROJECT_ID
 terraform apply -var "project=$PROJECT_ID" -auto-approve
 
 sleep 360s

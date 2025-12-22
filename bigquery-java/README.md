@@ -1,8 +1,10 @@
-
 # Google BigQuery SDK in Java
 
 ## Ziel
-In dieser Übungsaufgabe werden Sie ein Java-CLI-Tool entwickeln, das eine CSV-Datei in eine bereits existierende Google BigQuery-Tabelle lädt. Das Projekt wird als Maven-Projekt aufgebaut.
+
+In dieser Übungsaufgabe werden Sie ein Java-CLI-Tool entwickeln, das eine
+CSV-Datei in eine bereits existierende Google BigQuery-Tabelle lädt. Das
+Projekt wird als Maven-Projekt aufgebaut.
 
 Es wird vorausgesetzt, dass bereits ein GCP-Projekt vorhanden ist.
 
@@ -18,32 +20,39 @@ Erstellen Sie eine Tabelle `tracks` im Dataset `spotify`:
 
 ```sh
 bq mk --table spotify.tracks \
-id:STRING,name:STRING,genre:STRING,artists:STRING,album:STRING,popularity:INTEGER,duration:INTEGER,explicit:STRING
+  id:STRING,name:STRING,genre:STRING,artists:STRING,album:STRING, \
+  popularity:INTEGER,duration:INTEGER,explicit:STRING
 ```
 
-Erstellen Sie nun einen GCS-Bucket für diese Aufgabe. Sie können einen beliebigen Bucket-Name wählen – Sie brauchen den Namen aber später.
+Erstellen Sie nun einen GCS-Bucket für diese Aufgabe. Sie können einen
+beliebigen Bucket-Name wählen – Sie brauchen den Namen aber später.
 
 ```shell
 gsutil mb -l EU gs://YOUR_BUCKET_NAME
 ```
 
-Kopieren Sie die CSV mit Beispieldaten aus diesem Verzeichnis in den neuen Bucket:
+Kopieren Sie die CSV mit Beispieldaten aus diesem Verzeichnis in den neuen
+Bucket:
 
 ```shell
 gsutil cp spotify.csv gs://YOUR_BUCKET_NAME/spotify.csv
 ```
 
-
 ## Schritt 1: Projekt-Setup
+
 Erstellen Sie ein neues Maven-Projekt.
 
 ```sh
-mvn archetype:generate -DgroupId=com.example -DartifactId=bq-uploader -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+mvn archetype:generate -DgroupId=com.example -DartifactId=bq-uploader \
+  -DarchetypeArtifactId=maven-archetype-quickstart \
+  -DinteractiveMode=false
 cd bq-uploader
 ```
 
 ## Schritt 2: Abhängigkeiten hinzufügen
-Öffnen Sie die `pom.xml`-Datei und fügen Sie die notwendigen Abhängigkeiten für Google BigQuery hinzu.
+
+Öffnen Sie die `pom.xml`-Datei und fügen Sie die notwendigen Abhängigkeiten für
+Google BigQuery hinzu.
 
 ```xml
 <dependencies>
@@ -56,7 +65,9 @@ cd bq-uploader
 ```
 
 ## Schritt 3: Ergänzung des Manifests in `pom.xml`
-Um sicherzustellen, dass die Main-Class im Manifest des JAR-Files enthalten ist, müssen wir das `pom.xml`-File anpassen.
+
+Um sicherzustellen, dass die Main-Class im Manifest des JAR-Files enthalten
+ist, müssen wir das `pom.xml`-File anpassen.
 
 ```xml
 <build>
@@ -102,9 +113,12 @@ Um sicherzustellen, dass die Main-Class im Manifest des JAR-Files enthalten ist,
 ```
 
 ## Schritt 4: Java-Klasse erstellen
-Entfernen Sie das `src/test`-Verzeichnis sowie die Datei `App.java` im Verzeichnis `src/main/java/com/example`.
 
-Erstellen Sie eine neue Java-Klasse `BqUploader` unter `src/main/java/com/example`.
+Entfernen Sie das `src/test`-Verzeichnis sowie die Datei `App.java` im
+Verzeichnis `src/main/java/com/example`.
+
+Erstellen Sie eine neue Java-Klasse `BqUploader` unter
+`src/main/java/com/example`.
 
 ```java
 package com.example;
@@ -146,14 +160,19 @@ public class BqUploader {
                 FormatOptions.csv().toBuilder().setSkipLeadingRows(1).build())
             .build();
 
-        Job job = bigQuery.create(JobInfo.newBuilder(loadConfig).setJobId(JobId.of(UUID.randomUUID().toString())).build());
-        
+        Job job = bigQuery.create(
+            JobInfo.newBuilder(loadConfig)
+                .setJobId(JobId.of(UUID.randomUUID().toString()))
+                .build());
+
         job = job.waitFor();
-        
+
         if (job.isDone()) {
             System.out.println("CSV file successfully loaded to BigQuery");
         } else {
-            System.out.println("BigQuery was unable to load the CSV file: \n" + job.getStatus().getError());
+            System.out.println(
+                "BigQuery was unable to load the CSV file: \n"
+                    + job.getStatus().getError());
         }
     }
 }
@@ -161,20 +180,25 @@ public class BqUploader {
 ```
 
 ## Schritt 5: Erstellung des Fat JARs
+
 Kompilieren und erstellen Sie das Fat JAR-File.
 
 ```sh
 mvn clean package
 ```
 
-Das Fat JAR-File befindet sich im `target`-Verzeichnis und heißt `bq-uploader-1.0-SNAPSHOT-jar-with-dependencies.jar`.
+Das Fat JAR-File befindet sich im `target`-Verzeichnis und heißt
+`bq-uploader-1.0-SNAPSHOT-jar-with-dependencies.jar`.
 
 ## Schritt 6: Ausführung des Tools
-Führen Sie das Tool aus, indem Sie das Fat JAR-File ausführen und die CSV-Datei sowie die Projekt- und Tabellendetails als Argumente übergeben.
+
+Führen Sie das Tool aus, indem Sie das Fat JAR-File ausführen und die
+CSV-Datei sowie die Projekt- und Tabellendetails als Argumente übergeben.
 Der Pfad zur Datei muss eine Google Cloud Storage-URI sein.
 
 ```sh
-java -jar target/bq-uploader-1.0-SNAPSHOT-jar-with-dependencies.jar gs://YOUR_BUCKET_NAME/spotify.csv
+java -jar target/bq-uploader-1.0-SNAPSHOT-jar-with-dependencies.jar \
+  gs://YOUR_BUCKET_NAME/spotify.csv
 ```
 
 ## Schritt 7: SQL-Abfrage gegen BigQuery ausführen
@@ -185,5 +209,6 @@ Führen Sie einige Beispiel-Queries mit dem bq-CLI aus:
 bq query 'SELECT * FROM spotify.tracks LIMIT 10'
 bq query --format json 'SELECT * FROM spotify.tracks LIMIT 5'
 bq query 'SELECT genre, COUNT(genre) FROM spotify.tracks GROUP BY genre'
-bq query 'SELECT album, popularity FROM spotify.tracks ORDER BY popularity DESC LIMIT 20'
+bq query 'SELECT album, popularity FROM spotify.tracks ORDER BY popularity' \
+  'DESC LIMIT 20'
 ```

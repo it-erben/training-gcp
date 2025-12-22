@@ -1,10 +1,14 @@
 # Build und Deployment einer Container-App mit Google Cloud Build
 
-Mit dieser Anleitung lernst du, wie man eine einfache Python-Anwendung per Docker containerisiert, mit Google Cloud Build automatisiert baut und anschließend das Image in der Artifact Registry ablegt.
+Mit dieser Anleitung lernst du, wie man eine einfache Python-Anwendung per
+Docker containerisiert, mit Google Cloud Build automatisiert baut und
+anschließend das Image in der Artifact Registry ablegt.
 
 ## Artefakt-Repository anlegen
 
-Aktiviere die notwendigen APIs und speichere dir für später die aktuelle Projekt-ID in eine Variable:
+Aktiviere die notwendigen APIs und speichere dir für später die aktuelle
+Projekt-ID in eine Variable:
+
 ```bash
 gcloud services enable \
   cloudbuild.googleapis.com \
@@ -14,7 +18,9 @@ gcloud services enable \
 export PROJECT_ID=$(gcloud config get-value project)
 ```
 
-Lege nun ein Artefakt-Repository an, in das die Docker-Images hochgeladen werden können.
+Lege nun ein Artefakt-Repository an, in das die Docker-Images hochgeladen
+werden können.
+
 ```bash
 gcloud artifacts repositories create my-python-repo \
   --repository-format=docker \
@@ -55,7 +61,8 @@ Flask==3.0.0
 
 ## Image bauen
 
-Um das Image zu bauen, brauchen wir eine `Dockerfile`. Lege sie mit folgenden Inhalt an:
+Um das Image zu bauen, brauchen wir eine `Dockerfile`. Lege sie mit folgenden
+Inhalt an:
 
 ```dockerfile
 FROM python:3.9-slim
@@ -67,21 +74,35 @@ EXPOSE 8080
 CMD ["python", "app.py"]
 ```
 
-Du kannst nun mit dem Befehl `docker build .` testen, ob deine Dockerfile korrekt ist. Der Befehl sollte erfolgreich ein Image bauen können.
+Du kannst nun mit dem Befehl `docker build .` testen, ob deine Dockerfile
+korrekt ist. Der Befehl sollte erfolgreich ein Image bauen können.
 
 ## cloudbuild.yaml anlegen
 
 Lege eine Datei `cloudbuild.yaml` mit folgenden Inhalt an:
 
 ```yaml
+substitutions:
+    _REGION: europe-west1
+    _REPO: my-python-repo
+    _IMAGE: python-demo
+    _TAG: latest
+
 steps:
-  - name: "gcr.io/cloud-builders/docker"
-    args: [ "build", "-t", "europe-west1-docker.pkg.dev/$PROJECT_ID/my-python-repo/python-demo:latest", "." ]
+    - name: 'gcr.io/cloud-builders/docker'
+      args:
+          - build
+          - -t
+          - $_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$_TAG
+          - .
 
-  - name: "gcr.io/cloud-builders/docker"
-    args: [ "push","europe-west1-docker.pkg.dev/$PROJECT_ID/my-python-repo/python-demo:latest" ]
+    - name: 'gcr.io/cloud-builders/docker'
+      args:
+          - push
+          - $_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$_TAG
 
-images: [ "europe-west1-docker.pkg.dev/$PROJECT_ID/my-python-repo/python-demo:latest" ]
+images:
+    - $_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$_TAG
 ```
 
 Übermittle dann den Build-Auftrag an GCP mit folgendem Kommando:
@@ -96,7 +117,9 @@ Zuletzt können wir die Anwendung in Cloud Run deployen, um sie zu testen:
 
 ```bash
 gcloud run deploy python-demo \
-  --image=europe-west1-docker.pkg.dev/$PROJECT_ID/my-python-repo/python-demo:latest \
-  --platform=managed --region=europe-west1 --allow-unauthenticated
+  --image \
+  europe-west1-docker.pkg.dev/$PROJECT_ID/my-python-repo/python-demo:latest \
+  --platform=managed \
+  --region=europe-west1 \
+  --allow-unauthenticated
 ```
-

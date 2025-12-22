@@ -8,12 +8,12 @@ IMAGE_PROJECT="debian-cloud"
 
 # Function to create a VM
 create_vm() {
-  local VM_NAME=$1
-  gcloud compute instances create $VM_NAME \
-    --zone=$ZONE \
-    --machine-type=$MACHINE_TYPE \
-    --image-family=$IMAGE_FAMILY \
-    --image-project=$IMAGE_PROJECT \
+  local vm_name="$1"
+  gcloud compute instances create "$vm_name" \
+    --zone="$ZONE" \
+    --machine-type="$MACHINE_TYPE" \
+    --image-family="$IMAGE_FAMILY" \
+    --image-project="$IMAGE_PROJECT" \
     --metadata=startup-script="#! /bin/bash
       sudo apt-get update
       sudo apt-get install -y stress
@@ -24,8 +24,8 @@ create_vm() {
 
 # Create 4 VMs
 for i in {1..4}; do
-  VM_NAME="compute-vm-$i"
-  create_vm $VM_NAME
+  vm_name="compute-vm-$i"
+  create_vm "$vm_name"
 done
 
 echo "4 VMs created and started with high CPU utilization."
