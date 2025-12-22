@@ -1,12 +1,15 @@
 # Einbinden von Daten in BigQuery
 
-In dieser Aufgabe werden Sie einen Storage-Bucket als externe Quelle in BigQuery einbinden.
+In dieser Aufgabe werden Sie einen Storage-Bucket als externe Quelle in
+BigQuery einbinden.
 
 ## Bucket erstellen
 
-Erstellen Sie zunächst einen Storage-Bucket in der EU. Verwenden Sie die Voreinstellungen, die bereits gegeben sind.
+Erstellen Sie zunächst einen Storage-Bucket in der EU. Verwenden Sie die
+Voreinstellungen, die bereits gegeben sind.
 
-Laden Sie danach die [CSV-Datei](customers-100000.csv) in diesem Ordner in den Bucket hoch.
+Laden Sie danach die [CSV-Datei](customers-100000.csv) in diesem Ordner in den
+Bucket hoch.
 
 ## Scan starten
 
@@ -28,7 +31,8 @@ Wähle den manuellen, externen Import
 
 ---
 
-Wähle den Bucket und die Datei aus. Erstelle über das Menü ein Dataset namens "myds" und eine Tabelle namens "customers".
+Wähle den Bucket und die Datei aus. Erstelle über das Menü ein Dataset namens
+"myds" und eine Tabelle namens "customers".
 Das Dataset muss in der EU liegen!
 
 ![img.png](pictures/004-form.png)
@@ -43,7 +47,8 @@ Du kannst den Dialog nun abschließen
 
 ---
 
-Kehre in das Studio über das Menü auf der rechten Seite zurück – es ist der erste Menüpunkt oben. Wähle im Baum deine Tabelle aus.
+Kehre in das Studio über das Menü auf der rechten Seite zurück – es ist der
+erste Menüpunkt oben. Wähle im Baum deine Tabelle aus.
 
 ![img.png](pictures/006-tree.png)
 
@@ -53,11 +58,14 @@ Starte das Abfragefenster.
 
 ![img.png](pictures/007-query.png)
 
---- 
+---
 
-Du kannst nun beliebige Testanfragen ausführen. Hier sind einige Ideen. Finde heraus, was die Queries ergeben.
-Bitte ersetze die Platzhalter vor dem Ausführen der Query. Beachte bitte die separierenden Punkte. Es ist weiterhin wichtig, die richtigen Anführungszeichen zu übernehmen – es handelt sich um Backticks für Spalten- sowie Tabellen-Qualifizierer und einfache Anführungszeichen für Literale.
-
+Du kannst nun beliebige Testanfragen ausführen. Hier sind einige Ideen. Finde
+heraus, was die Queries ergeben.
+Bitte ersetze die Platzhalter vor dem Ausführen der Query. Beachte bitte die
+separierenden Punkte. Es ist weiterhin wichtig, die richtigen Anführungszeichen
+zu übernehmen – es handelt sich um Backticks für Spalten- sowie
+Tabellen-Qualifizierer und einfache Anführungszeichen für Literale.
 
 ```sql
 SELECT Country, COUNT(*) AS customer_count
@@ -68,7 +76,8 @@ LIMIT 5;
 ```
 
 ```sql
-SELECT EXTRACT(YEAR FROM DATE(`Subscription_Date`)) AS year, COUNT(*) AS registrations
+SELECT EXTRACT(YEAR FROM DATE(`Subscription_Date`)) AS year,
+  COUNT(*) AS registrations
 FROM `GCP_PROJEKT_NAME.DATASOURCE_NAME.TABLE_NAME`
 GROUP BY year
 ORDER BY year;

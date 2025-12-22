@@ -1,26 +1,38 @@
 # Google Cloud Functions mit HTTP-Trigger in Java
 
-In dieser Aufgabe werden wir eine Google Cloud Functions-Anwendung bereitstellen, die über einen HTTP-Trigger ausgeführt werden kann.
+In dieser Aufgabe werden wir eine Google Cloud Functions-Anwendung
+bereitstellen, die über einen HTTP-Trigger ausgeführt werden kann.
 
 ## Projekt vorbereiten
 
-Für Google Cloud Functions muss eine Reihe von APIs im GCP-Projekt aktiviert sein.
-Wechseln Sie als erstes im Browser in das GCP-Projekt, in dem Sie arbeiten möchten. 
-Rufen Sie dann folgende URL auf:
+Für Google Cloud Functions muss eine Reihe von APIs im GCP-Projekt aktiviert
+sein. Wechseln Sie als erstes im Browser in das GCP-Projekt, in dem Sie arbeiten
+möchten.
+Rufen Sie dann die API-Bibliothek auf:
 
-https://console.cloud.google.com/apis/enableflow?apiid=cloudfunctions.googleapis.com,%20%20%20%20%20cloudbuild.googleapis.com,artifactregistry.googleapis.com,%20%20%20%20%20run.googleapis.com,logging.googleapis.com
+<https://console.cloud.google.com/apis/library>
 
-Dies wird die benötigten APIs aktivieren.
+Aktivieren Sie dort die folgenden APIs:
+
+- Cloud Functions API
+- Cloud Build API
+- Artifact Registry API
+- Cloud Run API
+- Cloud Logging API
 
 ## Java-Projekt anlegen und vorbereiten
 
 Erstellen Sie ein neues Maven-Projekt.
+
 ```sh
-mvn archetype:generate -DgroupId=com.example -DartifactId=gcf -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+mvn archetype:generate -DgroupId=com.example -DartifactId=gcf \
+  -DarchetypeArtifactId=maven-archetype-quickstart \
+  -DinteractiveMode=false
 cd gcf
 ```
 
-Fügen Sie danach in der POM folgende `dependency` und folgende `build`-Config hinzu:
+Fügen Sie danach in der POM folgende `dependency` und folgende `build`-Config
+hinzu:
 
 ```xml
 <dependencies>
@@ -49,9 +61,12 @@ Fügen Sie danach in der POM folgende `dependency` und folgende `build`-Config h
 ```
 
 ## Main-Klasse hinzufügen
-Entfernen Sie das `src/test`-Verzeichnis sowie die Datei `App.java` im Verzeichnis `src/main/java/com/example`.
 
-Legen Sie ein neues Verzeichnis `src/main/java/functions` an und darin eine neue Datei `HelloWorld.java` mit folgendem Code ein:
+Entfernen Sie das `src/test`-Verzeichnis sowie die Datei `App.java` im
+Verzeichnis `src/main/java/com/example`.
+
+Legen Sie ein neues Verzeichnis `src/main/java/functions` an und darin eine neue
+Datei `HelloWorld.java` mit folgendem Code ein:
 
 ```java
 
@@ -76,17 +91,21 @@ public class HelloWorld implements HttpFunction {
 
 ## Funktion lokal ausführen
 
-Um zu testen, ob die Funktion korrekt aufgesetzt ist, können Sie im Projektverzeichnis folgenden Befehl ausführen:
+Um zu testen, ob die Funktion korrekt aufgesetzt ist, können Sie im
+Projektverzeichnis folgenden Befehl ausführen:
+
 ```shell
 mvn function:run
 ```
+
 Sie werden aufgefordert, die Funktion im Browser aufzurufen:
 
 ![run-locally.png](run-locally.png)
 
 ## Funktion deployen
 
-Um die Funktion in der Google Cloud zu deployen, führen Sie zuletzt folgende Befehle aus.
+Um die Funktion in der Google Cloud zu deployen, führen Sie zuletzt folgende
+Befehle aus.
 
 ```shell
 gcloud functions deploy java-http-function \
@@ -99,21 +118,31 @@ gcloud functions deploy java-http-function \
     --allow-unauthenticated
 ```
 
-Wenn Sie dabei Fehler wie den folgenden erhalten, müssen Sie den Befehl wiederholen:
+Wenn Sie dabei Fehler wie den folgenden erhalten, müssen Sie den Befehl
+wiederholen:
 
 ```shell
-Enabling service [cloudbuild.googleapis.com] on project [my-firebase-project-428308]...
-Operation "operations/acf.p2-635965646353-abf09b33-b8a4-457f-9cee-16a51aed30ad" finished successfully.
-ERROR: (gcloud.functions.deploy) ResponseError: status=[404], code=[Ok], message=[Service account projects/-/serviceAccounts/635965646353-compute@developer.gserviceaccount.com was not found.]
+Enabling service [cloudbuild.googleapis.com] on project
+[my-firebase-project-428308]...
+Operation "operations/acf.p2-635965646353-abf09b33-b8a4-457f-9cee-16a51aed30ad"
+finished successfully.
+ERROR: (gcloud.functions.deploy) ResponseError: status=[404], code=[Ok],
+message=[Service account projects/-/serviceAccounts/
+635965646353-compute@developer.gserviceaccount.com was not found.]
 ```
-Hintergrund ist dass die notwendigen Service Accounts erst nach dem Aktivieren der APIs angelegt werden. Wenn Sie weiter oben alle APIs aktiviert haben, sollten Sie hier allerdings nicht mehr in solche Fehler laufen. 
+
+Hintergrund ist dass die notwendigen Service Accounts erst nach dem Aktivieren
+der APIs angelegt werden. Wenn Sie weiter oben alle APIs aktiviert haben,
+sollten Sie hier allerdings nicht mehr in solche Fehler laufen.
 
 Wenn die Funktion erfolgreich deployt wurde, erhalten Sie die folgende Ausgabe:
 
 ```shell
 state: ACTIVE
 updateTime: '2024-07-03T13:41:15.155204213Z'
-url: https://europe-west1-my-firebase-project-428308.cloudfunctions.net/java-http-function
+url:
+  https://REGION-PROJECT.cloudfunctions.net/java-http-function
 ```
-Die URL wird entsprechend anders aussehen. Rufen Sie die Seite auf und prüfen Sie das Ergebnis.
 
+Die URL wird entsprechend anders aussehen. Rufen Sie die Seite auf und prüfen
+Sie das Ergebnis.

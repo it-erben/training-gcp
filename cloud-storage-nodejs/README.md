@@ -1,10 +1,14 @@
 # Google Cloud Storage SDK in Node.js
 
-In dieser Übungsaufgabe werden Sie ein Node.js-CLI-Tool entwickeln, das eine Datei in einen Google Cloud Storage-Bucket hochlädt. Es wird vorausgesetzt, dass bereits ein GCP-Projekt mit einem Google Cloud Storage-Bucket vorhanden ist.
+In dieser Übungsaufgabe werden Sie ein Node.js-CLI-Tool entwickeln, das eine
+Datei in einen Google Cloud Storage-Bucket hochlädt. Es wird vorausgesetzt,
+dass bereits ein GCP-Projekt mit einem Google Cloud Storage-Bucket vorhanden
+ist.
 
 ## Schritt 1: Projekt-Setup
 
 Erstellen Sie ein neues Node.js-Projekt.
+
 ```shell
 mkdir gcs-uploader
 cd gcs-uploader
@@ -14,6 +18,7 @@ npm init -y
 ## Schritt 2: Abhängigkeiten hinzufügen
 
 Installieren Sie die notwendigen Abhängigkeiten für Google Cloud Storage.
+
 ```shell
 npm install --save @google-cloud/storage
 ```
@@ -52,10 +57,10 @@ const bucketName = process.argv[3];
 uploadFile(filePath, bucketName).catch(console.error);
 ```
 
-
 ## Schritt 4: Ausführung des Tools
 
-Führen Sie das Tool aus, indem Sie das Node.js-Skript ausführen und die Datei sowie den Bucket-Namen als Argumente übergeben.
+Führen Sie das Tool aus, indem Sie das Node.js-Skript ausführen und die Datei
+sowie den Bucket-Namen als Argumente übergeben.
 
 ```shell
 node gcsUploader.js /path/to/your/file.txt your-bucket-name

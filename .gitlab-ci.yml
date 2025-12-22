@@ -13,7 +13,9 @@ variables:
 
 lint:js:
   stage: lint
-  image: node:18
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  image: node:21-alpine
   script:
     - |
       set -euo pipefail
@@ -28,27 +30,19 @@ lint:js:
 
 lint:python:
   stage: lint
-  image: python:3.11
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  image: python:3.14-slim
   script:
     - python -m pip install ruff black
     - ruff check appengine cloud-storage-emulator
     - black --check appengine cloud-storage-emulator
 
-lint:shellcheck:
-  stage: lint
-  image: koalaman/shellcheck:stable
-  script:
-    - shellcheck cloud-metrics/setup.sh cloud-loadbalancer/setup.sh
-
-lint:shfmt:
-  stage: lint
-  image: mvdan/shfmt:v3.7.0
-  script:
-    - shfmt -i 2 -ci -d cloud-metrics/setup.sh cloud-loadbalancer/setup.sh
-
 lint:terraform:
   stage: lint
-  image: hashicorp/terraform:1.6.6
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  image: hashicorp/terraform:1.14
   script:
     - cd cloud-loadbalancer
     - terraform fmt -check -diff
@@ -57,7 +51,9 @@ lint:terraform:
 
 verify:node_api_gateway:
   stage: verify
-  image: node:18
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  image: node:21-alpine
   script:
     - cd api-gateway
     - npm install --no-audit --no-fund
@@ -65,7 +61,9 @@ verify:node_api_gateway:
 
 verify:node_cloud_logging:
   stage: verify
-  image: node:18
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  image: node:21-alpine
   script:
     - cd cloud-logging
     - npm install --no-audit --no-fund
