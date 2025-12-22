@@ -1,17 +1,22 @@
 # Arbeiten mit dem Cloud Shell Editor
 
-In dieser Aufgabe lernen Sie den Cloud Shell Editor kennen. Dazu werden Sie aufbauend auf die Aufgabe in [cloud-shell-basics](../cloud-shell-basics) ein Python-Skript schreiben, welches den Inhalt eines Cloud Storage-Buckets ausgibt.
+In dieser Aufgabe lernen Sie den Cloud Shell Editor kennen. Dazu werden Sie
+aufbauend auf die Aufgabe in [cloud-shell-basics](../cloud-shell-basics) ein
+Python-Skript schreiben, welches den Inhalt eines Cloud Storage-Buckets ausgibt.
 
 ## Schritt 1: Shell Editor öffnen
 
 Öffnen Sie den Cloud Shell Editor über die Menüleiste oben in der Konsole.
 ![menu.png](pictures/menu.png)
 
-Nun wird ggf. erst eine Shell gestartet und Sie müssen einen Moment warten. Machen Sie sich mit dem Editor und dem Menü vertraut – es ähnelt stark Visual Studio Code.
+Nun wird ggf. erst eine Shell gestartet und Sie müssen einen Moment warten.
+Machen Sie sich mit dem Editor und dem Menü vertraut – es ähnelt stark Visual
+Studio Code.
 
 ## Schritt 2: Python-Skript anlegen
 
-Legen Sie in der Explorer-Ansicht des Editors eine neue Datei an. Der Name ist beliebig, muss aber auf .py enden.
+Legen Sie in der Explorer-Ansicht des Editors eine neue Datei an. Der Name ist
+beliebig, muss aber auf .py enden.
 
 ![create-new-file.png](pictures/create-new-file.png)
 
@@ -46,7 +51,9 @@ if __name__ == "__main__":
 ```
 
 ## Schritt 4: Terminal öffnen und Programm testen
-Kopieren Sie den absoluten Pfad der Python-Datei, indem sie auf die Datei im Dateibrowser mit der rechten Maustaste klicken und "Copy Path" wählen.
+
+Kopieren Sie den absoluten Pfad der Python-Datei, indem sie auf die Datei im
+Dateibrowser mit der rechten Maustaste klicken und "Copy Path" wählen.
 
 Öffnen Sie eine neue Shell-Sitzung.
 
@@ -57,8 +64,12 @@ Installieren sie das Python 3-SDK für Google Cloud Storage
 ```shell
 pip3 install google-cloud-storage
 ```
-Führen Sie nun das Programm aus. Ersetzen Sie zuvor den oben ermittelten Pfad in unten stehendem Befehl.
+
+Führen Sie nun das Programm aus. Ersetzen Sie zuvor den oben ermittelten Pfad
+in unten stehendem Befehl.
+
 ```shell
 /bin/python3 /home/alex/test.py # Dateipfad entsprechend anpassen
 ```
+
 Damit ist die Aufgabe abgeschlossen. Herzlichen Glückwunsch!

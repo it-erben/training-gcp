@@ -1,21 +1,28 @@
-# Übungsaufgabe: CLI zum Hochladen von Beispieldaten in eine Google Cloud Firestore-Datenbank
+# Übungsaufgabe: Firestore-Beispieldaten per CLI
 
-In dieser Übungsaufgabe werden Sie ein CLI-Tool entwickeln, das mithilfe der Datafaker-Library Beispieldaten generiert und in eine Google Cloud Firestore-Datenbank hochlädt.
+In dieser Übungsaufgabe werden Sie ein CLI-Tool entwickeln, das mithilfe der
+Datafaker-Library Beispieldaten generiert und in eine Google Cloud
+Firestore-Datenbank hochlädt.
 
 ## Firebase und Firestore einrichten
 
-Sollten Sie noch kein Firebase-Projekt für Ihr aktuelles GCP-Projekt haben, legen Sie wie folgt eines an:
+Sollten Sie noch kein Firebase-Projekt für Ihr aktuelles GCP-Projekt haben,
+legen Sie wie folgt eines an:
 
-Gehen Sie zur [Firebase-Konsole](https://console.firebase.google.com/u/0/) und beginnen Sie mit der Einrichtung eines neuen Projekts.
-Geben Sie an, dass Sie das Projekt mit einem bestehenden GCP-Projekt verbinden möchten.
+Gehen Sie zur [Firebase-Konsole](https://console.firebase.google.com/u/0/) und
+beginnen Sie mit der Einrichtung eines neuen Projekts.
+Geben Sie an, dass Sie das Projekt mit einem bestehenden GCP-Projekt verbinden
+möchten.
 
-![firebase-add-to-existing-project.png](pictures/firebase-add-to-existing-project.png)
+![firebase-add](pictures/firebase-add-to-existing-project.png)
 
-Klicken Sie auf das Eingabefeld für den Projektnamen und wählen Sie das GCP-Projekt aus, mit dem Sie Firebase verknüpfen wollen.
+Klicken Sie auf das Eingabefeld für den Projektnamen und wählen Sie das
+GCP-Projekt aus, mit dem Sie Firebase verknüpfen wollen.
 
 ![img.png](pictures/firebase-select-project-name.png)
 
-Bestätigen Sie nun in den folgenden Schritten des Wizards den Bezahlplan (Blaze - Pay As You Go) und lassen Google Analytics deaktiviert.
+Bestätigen Sie nun in den folgenden Schritten des Wizards den Bezahlplan
+(Blaze - Pay As You Go) und lassen Google Analytics deaktiviert.
 Nach einiger Wartezeit finden Sie sich in der Firebase-Konsole wieder.
 
 ![img.png](pictures/firebase-console.png)
@@ -24,12 +31,13 @@ Wechseln Sie im Menü links auf "Firestore Database"
 
 ![img.png](pictures/firestore-database.png)
 
-Legen Sie eine neue Datenbank "(default)" an und wählen Sie "europe" als Location.
+Legen Sie eine neue Datenbank "(default)" an und wählen Sie "europe" als
+Location.
 
 ![img.png](pictures/firestore-create-database.png)
 
-Wählen Sie im folgenden Schritt "production mode" und warten danach darauf, dass die Datenbank angelegt wurde.
-
+Wählen Sie im folgenden Schritt "production mode" und warten danach darauf,
+dass die Datenbank angelegt wurde.
 
 ## Schritt 1: Projekt-Setup
 
@@ -43,7 +51,8 @@ npm init -y
 
 ## Schritt 2: Abhängigkeiten hinzufügen
 
-Installieren Sie die notwendigen Abhängigkeiten für Google Cloud Firestore und Faker.js.
+Installieren Sie die notwendigen Abhängigkeiten für Google Cloud Firestore und
+Faker.js.
 
 ```shell
 npm install --save @google-cloud/firestore @faker-js/faker
@@ -51,7 +60,8 @@ npm install --save @google-cloud/firestore @faker-js/faker
 
 ## Schritt 3: Code für das Hochladen von Daten in Firestore
 
-Fügen Sie den folgenden Code in eine neue Datei namens `firestoreUploader.js` ein:
+Fügen Sie den folgenden Code in eine neue Datei namens `firestoreUploader.js`
+ein:
 
 ```javascript
 const { Firestore } = require('@google-cloud/firestore');
@@ -87,4 +97,7 @@ node firestoreUploader.js
 ```
 
 ## Prüfen des Ergebnisses
-Gehen Sie zurück in die Cloud-Firestore-Konsole, wo Sie zuvor die Datenbank angelegt haben. Sie sollten nun eine neue Collection "addresses" mit einem neuen Dokument sehen.
+
+Gehen Sie zurück in die Cloud-Firestore-Konsole, wo Sie zuvor die Datenbank
+angelegt haben. Sie sollten nun eine neue Collection "addresses" mit einem
+neuen Dokument sehen.

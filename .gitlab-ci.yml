@@ -1,0 +1,72 @@
+include:
+    - component: '$CI_SERVER_FQDN/it-erben/components/linters/lychee-lint@1.3.0'
+    - component: '$CI_SERVER_FQDN/it-erben/components/linters/yaml-lint@1.3.0'
+    - component: '$CI_SERVER_FQDN/it-erben/components/linters/markdown-lint@1.3.0'
+
+stages:
+    - lint
+    - verify
+
+variables:
+    PIP_DISABLE_PIP_VERSION_CHECK: '1'
+    PIP_NO_CACHE_DIR: '1'
+
+lint:js:
+    stage: lint
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+    image: node:21-alpine
+    script:
+        - |
+            set -euo pipefail
+            for dir in api-gateway cloud-logging; do
+              (
+                cd "$dir"
+                npm install --no-audit --no-fund
+                npm run lint
+                npm run format:check
+              )
+            done
+
+lint:python:
+    stage: lint
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+    image: python:3.14-slim
+    script:
+        - python -m pip install ruff black
+        - ruff check appengine cloud-storage-emulator
+        - black --check appengine cloud-storage-emulator
+
+lint:terraform:
+    stage: lint
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+    image:
+        name: hashicorp/terraform:1.14
+        entrypoint: ['']
+    script:
+        - cd cloud-loadbalancer
+        - terraform fmt -check -diff
+        - terraform init -backend=false -input=false
+        - terraform validate
+
+verify:node_api_gateway:
+    stage: verify
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+    image: node:21-alpine
+    script:
+        - cd api-gateway
+        - npm install --no-audit --no-fund
+        - npm test
+
+verify:node_cloud_logging:
+    stage: verify
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+    image: node:21-alpine
+    script:
+        - cd cloud-logging
+        - npm install --no-audit --no-fund
+        - npm test
