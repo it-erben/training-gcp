@@ -15,7 +15,7 @@ lint:js:
     stage: lint
     rules:
         - if: $CI_MERGE_REQUEST_ID
-    image: node:21-alpine
+    image: node:24-alpine
     script:
         - |
             set -euo pipefail
@@ -55,7 +55,7 @@ verify:node_api_gateway:
     stage: verify
     rules:
         - if: $CI_MERGE_REQUEST_ID
-    image: node:21-alpine
+    image: node:24-alpine
     script:
         - cd api-gateway
         - npm install --no-audit --no-fund
@@ -65,7 +65,7 @@ verify:node_cloud_logging:
     stage: verify
     rules:
         - if: $CI_MERGE_REQUEST_ID
-    image: node:21-alpine
+    image: node:24-alpine
     script:
         - cd cloud-logging
         - npm install --no-audit --no-fund
