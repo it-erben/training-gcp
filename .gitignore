@@ -2,3 +2,6 @@
 .lycheecache
 .lycheecache
 node_modules
+
+.npm-cache
+
