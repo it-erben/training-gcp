@@ -29,6 +29,8 @@ repos:
                 - 429,200
                 - --exclude
                 - http://localhost.*
+                - --exclude
+                - https://console\.cloud\.google\.com.*
                 - --exclude-path
                 - .npm-cache
                 - --max-concurrency
