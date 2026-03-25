@@ -1,11 +1,17 @@
 include:
+    - component: 'gitlab.com/it-erben/components/pdf-publisher/build-publish@1.7.0'
     - component: 'gitlab.com/it-erben/components/linters/lychee-lint@1.3.0'
     - component: 'gitlab.com/it-erben/components/linters/yaml-lint@1.3.0'
     - component: 'gitlab.com/it-erben/components/linters/markdown-lint@1.3.0'
+    - component: 'gitlab.com/it-erben/components/release/release@1.0.0'
+    - component: 'gitlab.com/it-erben/components/training-deploy/deploy@1.3.4'
 
 stages:
     - lint
+    - build
     - verify
+    - release
+    - deploy
 
 variables:
     PIP_DISABLE_PIP_VERSION_CHECK: '1'
@@ -17,8 +23,8 @@ lint:js:
         - if: $CI_MERGE_REQUEST_ID
     image: node:24-alpine
     script:
-        - npm --prefix api-gateway install --no-audit --no-fund
-        - npm --prefix cloud-logging install --no-audit --no-fund
+        - npm --prefix material/api-gateway install --no-audit --no-fund
+        - npm --prefix material/cloud-logging install --no-audit --no-fund
         - npm run lint:js
 
 lint:python:
@@ -28,8 +34,8 @@ lint:python:
     image: python:3.14-slim
     script:
         - python -m pip install ruff black
-        - ruff check appengine cloud-storage-emulator
-        - black --check appengine cloud-storage-emulator
+        - ruff check labs/05-appengine labs/cloud-storage-emulator
+        - black --check labs/05-appengine labs/cloud-storage-emulator
 
 lint:terraform:
     stage: lint
@@ -39,7 +45,7 @@ lint:terraform:
         name: hashicorp/terraform:1.14
         entrypoint: ['']
     script:
-        - cd cloud-loadbalancer
+        - cd labs/cloud-loadbalancer
         - terraform fmt -check -diff
         - terraform init -backend=false -input=false
         - terraform validate
@@ -50,7 +56,7 @@ verify:node_api_gateway:
         - if: $CI_MERGE_REQUEST_ID
     image: node:24-alpine
     script:
-        - cd api-gateway
+        - cd material/api-gateway
         - npm install --no-audit --no-fund
         - npm test
 
@@ -60,6 +66,6 @@ verify:node_cloud_logging:
         - if: $CI_MERGE_REQUEST_ID
     image: node:24-alpine
     script:
-        - cd cloud-logging
+        - cd material/cloud-logging
         - npm install --no-audit --no-fund
         - npm test
