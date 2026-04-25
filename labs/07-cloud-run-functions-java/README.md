@@ -1,11 +1,11 @@
-# 08 - Cloud Functions mit HTTP-Trigger in Java
+# 07 - Cloud Run Functions mit HTTP-Trigger in Java
 
-In dieser Aufgabe werden wir eine Google Cloud Functions-Anwendung
+In dieser Aufgabe werden wir eine Google Cloud Run Functions-Anwendung
 bereitstellen, die über einen HTTP-Trigger ausgeführt werden kann.
 
 ## Projekt vorbereiten
 
-Für Google Cloud Functions muss eine Reihe von APIs im GCP-Projekt aktiviert
+Für Google Cloud Run Functions muss eine Reihe von APIs im GCP-Projekt aktiviert
 sein. Wechseln Sie als erstes im Browser in das GCP-Projekt, in dem Sie arbeiten
 möchten.
 Rufen Sie dann die API-Bibliothek auf:
