@@ -1,11 +1,11 @@
-# 07 - Cloud Functions mit HTTP-Trigger in Node.js
+# 06 - Cloud Run Functions mit HTTP-Trigger in Node.js
 
-In dieser Aufgabe werden wir eine Google Cloud Functions-Anwendung
+In dieser Aufgabe werden wir eine Google Cloud Run Functions-Anwendung
 bereitstellen, die über einen HTTP-Trigger ausgeführt werden kann.
 
 ## Projekt vorbereiten
 
-Für Google Cloud Functions müssen eine Reihe von APIs im GCP-Projekt aktiviert
+Für Google Cloud Run Functions müssen eine Reihe von APIs im GCP-Projekt aktiviert
 sein. Wechseln Sie als erstes im Browser in das GCP-Projekt, in dem Sie arbeiten
 möchten.
 Rufen Sie dann die API-Bibliothek auf:
@@ -30,7 +30,7 @@ cd gcf
 npm init -y
 ```
 
-Installieren Sie die notwendigen Abhängigkeiten für Google Cloud Functions.
+Installieren Sie die notwendigen Abhängigkeiten für Google Cloud Run Functions.
 
 ```shell
 npm install --save @google-cloud/functions-framework
@@ -54,15 +54,8 @@ Funktion lokal auszuführen:
 
 ```json
 {
-    "name": "gcf",
-    "version": "1.0.0",
-    "main": "index.js",
-    "license": "MIT",
     "scripts": {
         "start": "functions-framework --target=helloWorld"
-    },
-    "dependencies": {
-        "@google-cloud/functions-framework": "^3.1.1"
     }
 }
 ```

@@ -34,8 +34,8 @@ lint:python:
     image: python:3.14-slim
     script:
         - python -m pip install ruff black
-        - ruff check labs/05-appengine labs/cloud-storage-emulator
-        - black --check labs/05-appengine labs/cloud-storage-emulator
+        - ruff check labs/cloud-storage-emulator
+        - black --check labs/cloud-storage-emulator
 
 lint:terraform:
     stage: lint
