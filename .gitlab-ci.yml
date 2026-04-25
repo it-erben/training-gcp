@@ -50,6 +50,54 @@ lint:terraform:
         - terraform init -backend=false -input=false
         - terraform validate
 
+lint:terraform:projects:
+    stage: lint
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+    image:
+        name: hashicorp/terraform:1.14
+        entrypoint: ['']
+    script:
+        - cd terraform
+        - terraform fmt -check -diff
+        - terraform init -backend=false -input=false
+        - terraform validate
+
+.terraform:projects:
+    image:
+        name: hashicorp/terraform:1.14
+        entrypoint: ['']
+    before_script:
+        - cd terraform
+        - >-
+            terraform init
+            -backend-config="address=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/projects"
+            -backend-config="lock_address=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/projects/lock"
+            -backend-config="unlock_address=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/projects/lock"
+            -backend-config="username=gitlab-ci-token"
+            -backend-config="password=${CI_JOB_TOKEN}"
+            -backend-config="lock_method=POST"
+            -backend-config="unlock_method=DELETE"
+            -backend-config="retry_wait_min=5"
+
+plan:terraform:projects:
+    extends: .terraform:projects
+    stage: build
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+    script:
+        - terraform plan -input=false
+    resource_group: terraform-projects
+
+apply:terraform:projects:
+    extends: .terraform:projects
+    stage: deploy
+    rules:
+        - if: $CI_COMMIT_TAG
+    script:
+        - terraform apply -auto-approve -input=false
+    resource_group: terraform-projects
+
 verify:node_api_gateway:
     stage: verify
     rules:
