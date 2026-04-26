@@ -4,7 +4,7 @@ include:
     - component: 'gitlab.com/it-erben/components/linters/yaml-lint@1.3.0'
     - component: 'gitlab.com/it-erben/components/linters/markdown-lint@1.3.0'
     - component: 'gitlab.com/it-erben/components/release/release@1.0.0'
-    - component: 'gitlab.com/it-erben/components/training-deploy/deploy@1.4.0'
+    - component: 'gitlab.com/it-erben/components/training-deploy/deploy@1.4.1'
 
 stages:
     - lint
@@ -23,7 +23,6 @@ lint:js:
         - if: $CI_MERGE_REQUEST_ID
     image: node:24-alpine
     script:
-        - npm --prefix material/api-gateway install --no-audit --no-fund
         - npm --prefix material/cloud-logging install --no-audit --no-fund
         - npm run lint:js
 
@@ -97,16 +96,6 @@ apply:terraform:projects:
     script:
         - terraform apply -auto-approve -input=false
     resource_group: terraform-projects
-
-verify:node_api_gateway:
-    stage: verify
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-    image: node:24-alpine
-    script:
-        - cd material/api-gateway
-        - npm install --no-audit --no-fund
-        - npm test
 
 verify:node_cloud_logging:
     stage: verify
