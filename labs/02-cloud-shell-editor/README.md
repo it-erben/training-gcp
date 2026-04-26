@@ -69,7 +69,7 @@ Führen Sie nun das Programm aus. Ersetzen Sie zuvor den oben ermittelten Pfad
 in unten stehendem Befehl.
 
 ```shell
-/bin/python3 /home/alex/test.py # Dateipfad entsprechend anpassen
+/bin/python3 test.py # Dateipfad gegebenenfalls anpassen
 ```
 
 Damit ist die Aufgabe abgeschlossen. Herzlichen Glückwunsch!

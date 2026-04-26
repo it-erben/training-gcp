@@ -12,22 +12,7 @@ fortfahren.
 
 ![prompt.png](images/prompt.png)
 
-## Schritt 2: Git-Reposity clonen
-
-Auf Cloud Shell sind eine ganze Reihe von Tools vorinstalliert – zum Beispiel
-git. Testen wir dies, indem wir ein Git-Repository clonen.
-Geben Sie den folgenden Befehl ein:
-
-```shell
-git clone https://gitlab.com/it-erben/gfu/gcp.git
-cd gcp
-less README.md
-```
-
-Sie sollten nun eine Textdatei sehen. Mit "q" können Sie `less` wieder
-verlassen.
-
-## Schritt 3: Erste Schritte mit dem gcloud-CLI
+## Schritt 2: Erste Schritte mit dem gcloud-CLI
 
 Probieren Sie folgende Befehle aus. Sie werden wahrscheinlich gefragt, ob Cloud
 Shell Zugriff auf Ihren Google-Account erhalten darf. Bejahen Sie die Frage.
@@ -42,7 +27,7 @@ gcloud config list
 gcloud config get-value project
 ```
 
-## Schritt 4: Anlegen eines Google Cloud Storage-Buckets
+## Schritt 3: Anlegen eines Google Cloud Storage-Buckets
 
 Google Cloud Storage lernen wir später im Kurs genauer kennen. Für jetzt reicht
 es zu verstehen, dass Cloud Storage ein Objektspeicher ist, in dem sich
@@ -53,7 +38,7 @@ Führen Sie folgenden Befehl in der Cloud Shell aus:
 
 ```shell
 export BUCKET_NAME="mybucket-gfu-$RANDOM"
-gsutil mb gs://$BUCKET_NAME
+gcloud storage buckets create gs://$BUCKET_NAME
 ```
 
 Sie haben nun einen Bucket angelegt mit einem zufälligen Namen.
@@ -64,7 +49,7 @@ Der neue Bucket ist nun einsatzbereit und Sie können eine Datei hochladen.
 
 ```shell
 echo "Das ist eine Testdatei." > testfile.txt
-gsutil cp testfile.txt gs://$BUCKET_NAME
+gcloud storage cp testfile.txt gs://$BUCKET_NAME
 ```
 
 Nun wollen wir über die Konsole prüfen, ob die Datei hochgeladen wurde.

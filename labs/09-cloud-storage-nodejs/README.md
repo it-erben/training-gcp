@@ -1,4 +1,4 @@
-# 11 - Cloud Storage SDK in Node.js
+# 09 - Cloud Storage SDK in Node.js
 
 In dieser Übungsaufgabe werden Sie ein Node.js-CLI-Tool entwickeln, das eine
 Datei in einen Google Cloud Storage-Bucket hochlädt. Es wird vorausgesetzt,

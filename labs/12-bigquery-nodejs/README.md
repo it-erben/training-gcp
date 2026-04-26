@@ -1,4 +1,4 @@
-# 16 - BigQuery SDK in Node.js
+# 12 - BigQuery SDK in Node.js
 
 In dieser Übungsaufgabe entwickeln Sie ein Node.js-CLI-Tool, das eine CSV-Datei
 in eine bereits existierende Google BigQuery-Tabelle lädt. Es wird davon
