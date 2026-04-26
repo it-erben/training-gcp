@@ -60,8 +60,8 @@ npm install --save @google-cloud/firestore @faker-js/faker
 
 ## Schritt 3: Code für das Hochladen von Daten in Firestore
 
-Fügen Sie den folgenden Code in eine neue Datei namens `firestoreUploader.js`
-ein:
+Erstellen Sie eine neue Datei namens `index.js` im Verzeichnis
+`firestore-uploader` und fügen Sie den folgenden Code hinzu:
 
 ```javascript
 const { Firestore } = require('@google-cloud/firestore');
@@ -93,7 +93,8 @@ uploadRandomData().catch(console.error);
 Führen Sie das Tool aus:
 
 ```shell
-node firestoreUploader.js
+cd ~/firestore-uploader
+node index.js
 ```
 
 ## Prüfen des Ergebnisses

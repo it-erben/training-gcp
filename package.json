@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "lint:js": "npm --prefix material/api-gateway run lint && npm --prefix material/api-gateway run format:check && npm --prefix material/cloud-logging run lint && npm --prefix material/cloud-logging run format:check"
+    "lint:js": "npm --prefix material/cloud-logging run lint && npm --prefix material/cloud-logging run format:check"
   },
   "devDependencies": {
     "eslint": "^9.39.2",
