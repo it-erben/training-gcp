@@ -70,7 +70,7 @@ lint:terraform:projects:
     before_script:
         - cd terraform
         - >-
-            terraform init
+            terraform init -reconfigure
             -backend-config="address=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/projects"
             -backend-config="lock_address=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/projects/lock"
             -backend-config="unlock_address=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/projects/lock"
