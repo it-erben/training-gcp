@@ -22,6 +22,7 @@ Aktivieren Sie dort die folgenden APIs:
 
 ## Node.js-Projekt anlegen und vorbereiten
 
+Wechseln Sie in den Cloud Shell Editor.
 Erstellen Sie ein neues Node.js-Projekt.
 
 ```shell
@@ -38,8 +39,8 @@ npm install --save @google-cloud/functions-framework
 
 ## Funktion erstellen
 
-Erstellen Sie eine Datei `index.js` mit folgendem Code, um eine einfache
-HTTP-Funktion bereitzustellen:
+Erstellen Sie im Verzeichnis `gcf` eine Datei `index.js` mit folgendem
+Code, um eine einfache HTTP-Funktion bereitzustellen:
 
 ```javascript
 const functions = require('@google-cloud/functions-framework');
@@ -49,7 +50,7 @@ functions.http('helloWorld', (req, res) => {
 });
 ```
 
-Fügen Sie außerdem ein Startskript in Ihre package.json-Datei hinzu, um die
+Fügen Sie außerdem ein Startskript in Ihre `package.json`-Datei hinzu, um die
 Funktion lokal auszuführen:
 
 ```json
@@ -69,8 +70,19 @@ Projektverzeichnis folgenden Befehl ausführen:
 npm install && npm start
 ```
 
-Besuchen Sie in Ihrem Browser <http://localhost:8080>, um das Ergebnis der
-Funktion zu sehen. Sie sollten die Nachricht “Hello World!” erhalten.
+In der Terminal-Ausgabe erscheint nun folgende Meldung:
+
+```text
+Serving function...
+Function: helloWorld
+Signature type: http
+URL: http://localhost:8080/
+```
+
+Wenn Sie auf die URL klicken, öffnet die Cloud Console automatisch einen
+neuen Browser-Tab, in dem die Funktion aufgerufen wird.
+
+Drücken Sie in der Terminal-Ausgabe STRG+C, um den Server zu beenden.
 
 ## Funktion deployen
 
@@ -81,7 +93,7 @@ Befehle aus.
 gcloud functions deploy my-nodejs-http-function \
     --gen2 \
     --entry-point=helloWorld \
-    --runtime=nodejs18 \
+    --runtime=nodejs24 \
     --region=europe-west1 \
     --source=. \
     --trigger-http \
