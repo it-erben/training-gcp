@@ -37,10 +37,10 @@ resource "google_project" "student" {
   deletion_policy = "DELETE"
 }
 
-resource "google_project_iam_member" "student_editor" {
+resource "google_project_iam_member" "student_owner" {
   count = var.student_count
 
   project = google_project.student[count.index].project_id
-  role    = "roles/editor"
+  role    = "roles/owner"
   member  = "user:student${format("%02d", count.index + 1)}@${var.org_domain}"
 }
