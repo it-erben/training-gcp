@@ -1,4 +1,4 @@
-# 13 - Firestore-Beispieldaten per CLI (Node.js)
+# 10 - Firestore-Beispieldaten per CLI (Node.js)
 
 In dieser Übungsaufgabe werden Sie ein CLI-Tool entwickeln, das mithilfe der
 Datafaker-Library Beispieldaten generiert und in eine Google Cloud

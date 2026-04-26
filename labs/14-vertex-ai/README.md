@@ -1,4 +1,4 @@
-# 19 - Videogenerierung mit Vertex AI
+# 14 - Videogenerierung mit Vertex AI
 
 In dieser Übungsaufgabe werden Sie ein Python-Skript erstellen, welches mit dem
 Veo 3-Modell von Vertex AI beliebige Videos generieren kann.

@@ -1,4 +1,4 @@
-# 10 - Cloud Logging-Demo
+# 08 - Cloud Logging-Demo
 
 Dieses Beispiel dient dazu, Logging-Daten in Cloud Logs zu erzeugen.
 

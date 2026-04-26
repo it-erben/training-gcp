@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(lychee:*)",
+      "Bash(kill:*)",
+      "mcp__glab__glab_ci_list",
+      "Bash(glab ci:*)",
+      "Bash(glab mr:*)",
+      "mcp__glab__glab_mr_view",
+      "mcp__glab__glab_api",
+      "Bash(glab api:*)",
+      "Bash(npm --prefix material/api-gateway install --no-audit --no-fund)",
+      "Bash(npm --prefix material/cloud-logging install --no-audit --no-fund)",
+      "Bash(npm --prefix material/api-gateway run lint)",
+      "Bash(npm --prefix material/api-gateway run format:check)",
+      "Bash(npx:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(rtk ls:*)",
+      "Bash(rtk find:*)",
+      "Bash(rtk grep:*)",
+      "Bash(rtk read:*)",
+      "Bash(rtk git:*)",
+      "Bash(rtk git commit -m ':*)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'visibility: {d[\\\\\"visibility\\\\\"]}'\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'id: {d.get\\(\\\\\"id\\\\\"\\)}, status: {d.get\\(\\\\\"status\\\\\"\\)}'\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'status: {d[\\\\\"status\\\\\"]}'\\)\")",
+      "Bash(rtk gcloud:*)",
+      "Bash(gcloud projects:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(grep -E \"\\\\.md$|\\\\.pdf$|slide|material\")",
+      "Bash(git mv:*)"
+    ]
+  }
+}

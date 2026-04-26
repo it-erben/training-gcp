@@ -1,4 +1,4 @@
-# 09 - Google Cloud API Gateway
+# 07 - Google Cloud API Gateway
 
 > **Material:** Die Quelldateien für diese Übung finden Sie im Material-ZIP
 > unter `api-gateway/` ([Material herunterladen](../../material/)).

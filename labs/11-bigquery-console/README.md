@@ -1,4 +1,4 @@
-# 15 - Einbinden von Daten in BigQuery
+# 11 - Einbinden von Daten in BigQuery
 
 In dieser Aufgabe werden Sie einen Storage-Bucket als externe Quelle in
 BigQuery einbinden.
