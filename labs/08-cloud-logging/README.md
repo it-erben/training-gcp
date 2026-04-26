@@ -11,7 +11,7 @@ Entpacken Sie das Material-ZIP und wechseln Sie in das Verzeichnis
 ```shell
 gcloud functions deploy logging-example-http-function \
   --gen2 \
-  --runtime=nodejs20 \
+  --runtime=nodejs24 \
   --source=. \
   --entry-point=helloGET \
   --trigger-http \

@@ -5,9 +5,19 @@ Datei in einen Google Cloud Storage-Bucket hochlädt. Es wird vorausgesetzt,
 dass bereits ein GCP-Projekt mit einem Google Cloud Storage-Bucket vorhanden
 ist.
 
-## Schritt 1: Projekt-Setup
+## Schritt 1: Vorbereitungen
 
-Erstellen Sie ein neues Node.js-Projekt.
+Öffnen Sie die Cloud Shell.
+
+Erstellen Sie einen neuen Google Cloud Storage Bucket. Der Name des Buckets
+muss weltweit eindeutig sein.
+
+```sh
+export BUCKET_NAME="mybucket-gfu-$RANDOM"
+gcloud storage buckets create gs://$BUCKET_NAME
+```
+
+Erstellen Sie ein neues Node.js-Projekt in einem neuen Verzeichnis namens `gcs-uploader`.
 
 ```shell
 mkdir gcs-uploader
@@ -25,7 +35,7 @@ npm install --save @google-cloud/storage
 
 ## Schritt 3: CLI-Skript erstellen
 
-Erstellen Sie eine neue Datei gcsUploader.js im Projektverzeichnis.
+Erstellen Sie eine neue Datei `index.js` im Verzeichnis `gcs-uploader.
 Fügen Sie den folgenden Code in die Datei ein:
 
 ```javascript
@@ -46,7 +56,7 @@ async function uploadFile(filePath, bucketName) {
 }
 
 if (process.argv.length < 4) {
-    console.log('Usage: node gcsUploader.js <file-path> <bucket-name>');
+    console.log('Usage: node index.js <file-path> <bucket-name>');
     process.exit(1);
 }
 
@@ -58,9 +68,12 @@ uploadFile(filePath, bucketName).catch(console.error);
 
 ## Schritt 4: Ausführung des Tools
 
-Führen Sie das Tool aus, indem Sie das Node.js-Skript ausführen und die Datei
-sowie den Bucket-Namen als Argumente übergeben.
+Führen Sie das Tool aus, indem Sie das Node.js-Skript ausführen
+und eine neu angelegte Datei sowie den Bucket-Namen als Argumente
+übergeben.
 
 ```shell
-node gcsUploader.js /path/to/your/file.txt your-bucket-name
+cd ~/gcs-uploader
+echo "Dies ist eine Testdatei." > testfile.txt
+node index.js testfile.txt $BUCKET_NAME
 ```
