@@ -1,7 +1,7 @@
 # 07 - Google Cloud API Gateway
 
-> **Material:** Die Quelldateien für diese Übung finden Sie im Material-ZIP
-> unter `api-gateway/` ([Material herunterladen](../../material/)).
+In dieser Aufgabe werden wir ein API Gateway vor eine Cloud Run
+Function schalten, die über einen HTTP-Trigger erreichbar ist.
 
 ## Schritt 1: Google APIs aktivieren
 
@@ -11,10 +11,39 @@ gcloud services enable servicemanagement.googleapis.com
 gcloud services enable servicecontrol.googleapis.com
 ```
 
-## Schritt 2: Function deployen
+## Schritt 2: Node.js-Projekt anlegen
 
-Entpacken Sie das Material-ZIP und wechseln Sie in das Verzeichnis
-`api-gateway/`. Deployen Sie dann die Beispielanwendung mit dem Befehl
+Erstellen Sie ein neues Verzeichnis und initialisieren Sie ein
+Node.js-Projekt.
+
+```shell
+mkdir api-gateway
+cd api-gateway
+npm init -y
+```
+
+Installieren Sie das Functions Framework.
+
+```shell
+npm install --save @google-cloud/functions-framework
+```
+
+## Schritt 3: Funktion erstellen
+
+Erstellen Sie im Verzeichnis `api-gateway` eine Datei `index.js`
+mit folgendem Code:
+
+```javascript
+const functions = require('@google-cloud/functions-framework');
+
+functions.http('helloGET', (req, res) => {
+    res.send('Hello World!');
+});
+```
+
+## Schritt 4: Function deployen
+
+Deployen Sie die Funktion in die Google Cloud.
 
 ```shell
 gcloud functions deploy nodejs-http-function \
@@ -26,7 +55,9 @@ gcloud functions deploy nodejs-http-function \
   --region europe-west1
 ```
 
-## Schritt 3: API Erstellen
+Notieren Sie sich die URL der deployten Funktion aus der Ausgabe.
+
+## Schritt 5: API erstellen
 
 Die API wird mit folgendem Befehl angelegt:
 
@@ -40,13 +71,14 @@ Informationen über die neue API lassen sich so anzeigen:
 gcloud api-gateway apis describe helloworldapi
 ```
 
-## Schritt 4: API Konfigurieren
+## Schritt 6: API konfigurieren
 
-Erstellen Sie eine OpenAPI v2-Datei mit folgender API-Spezifikation. Denken Sie
-daran, den GCF-Endpunkt einzutragen, der in Schritt 2 erzeugt wurde.
+Erstellen Sie eine Datei `api.yaml` mit folgender
+OpenAPI v2-Spezifikation. Denken Sie daran, den GCF-Endpunkt
+einzutragen, der in Schritt 4 erzeugt wurde.
 
 ```yaml
-# openapi2-functions.yaml
+# api.yaml
 swagger: '2.0'
 info:
     title: myapi optional-string
@@ -70,8 +102,9 @@ paths:
                         type: string
 ```
 
-Erstellen Sie nun die eigentliche API. Für den Backend-Service-Account brauchen
-wir die Projektnummer, die wir hier mit einem gcloud-Befehl auslesen.
+Erstellen Sie nun die API-Konfiguration. Für den
+Backend-Service-Account brauchen wir die Projektnummer, die wir
+mit einem gcloud-Befehl auslesen.
 
 ```shell
 export PROJECT_NUMBER=$(gcloud projects describe \
@@ -83,10 +116,10 @@ gcloud api-gateway api-configs create my-config \
   ${PROJECT_NUMBER}-compute@developer.gserviceaccount.com
 ```
 
-## Schritt 5: Gateway bereitstellen
+## Schritt 7: Gateway bereitstellen
 
-Nachdem nun die Konfiguration bereit ist, können wir das eigentliche Gateway
-erstellen.
+Nachdem die Konfiguration bereit ist, erstellen wir das
+eigentliche Gateway.
 
 ```shell
 gcloud api-gateway gateways create my-gateway \
@@ -97,9 +130,10 @@ gcloud api-gateway gateways create my-gateway \
 Danach lässt sich die URL wie folgt auslesen:
 
 ```shell
-gcloud api-gateway gateways describe my-gateway --location europe-west1
+gcloud api-gateway gateways describe my-gateway \
+  --location europe-west1
 ```
 
-In diesem Fall muss noch `/hello` an das Ende angehängt werden.
+Hängen Sie `/hello` an die URL an und rufen Sie sie im Browser auf.
 
 Danach können wir uns noch die Konsole anschauen.
