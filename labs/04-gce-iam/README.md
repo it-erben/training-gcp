@@ -16,15 +16,6 @@ gcloud storage buckets create gs://$BUCKET_NAME
 ## Erstellen eines Service Accounts
 
 Erstellen Sie einen neuen Service Account mit einem aussagekräftigen Namen.
-Damit Sie in den folgenden Schritten immer den richtigen Projektnamen nutzen,
-sollten Sie ihn in einer Variable speichern. Bitte denken Sie daran, den
-richtigen Projektnamen einzutragen!
-
-```sh
-export PROJECT_ID="IHRE_PROJEKT_ID"
-```
-
-Danach können Sie den Account anlegen
 
 ```sh
 gcloud iam service-accounts create gce-gcs-service-account \
@@ -41,8 +32,8 @@ als `gce-gcs-service-account` gewählt haben, müssen Sie den Befehl entsprechen
 anpassen:
 
 ```sh
-SERVICE_ACCOUNT="gce-gcs-service-account@${PROJECT_ID}.iam.gserviceaccount.com"
-gcloud projects add-iam-policy-binding $PROJECT_ID \
+SERVICE_ACCOUNT="gce-gcs-service-account@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com"
+gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT \
    --member="serviceAccount:${SERVICE_ACCOUNT}" \
    --role="roles/storage.admin"
 ```
@@ -57,7 +48,7 @@ gcloud compute instances create my-vm \
    --zone=europe-west1-b \
    --machine-type=f1-micro \
    --service-account \
-   gce-gcs-service-account@${PROJECT_ID}.iam.gserviceaccount.com \
+   gce-gcs-service-account@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
    --scopes=https://www.googleapis.com/auth/cloud-platform
 ```
 
@@ -69,13 +60,17 @@ Um nun einen Test durchführen zu können, verbinden wir uns per SSH mit der VM:
 gcloud compute ssh my-vm --zone=europe-west1-b
 ```
 
+Wenn Sie die Frage `Do you want to continue (Y/n)?` sehen, geben Sie
+`Y` ein und dann `Enter`.
+Wenn Sie nach einer Passphrase gefragt werden, drücken Sie einfach `Enter`.
+
 ## Mit GCS verbinden
 
 Zuletzt listen wir alle Buckets auf um zu testen, dass die Instanz
 Vollberechtigung auf Google Cloud Storage hat.
 
 ```shell
-gsutil ls
+gcloud storage buckets list
 ```
 
 ## Aufräumen
@@ -86,8 +81,8 @@ aus, um die Umgebung aufzuräumen.
 ```shell
 gcloud compute instances delete my-vm --zone=europe-west1-b \
   --quiet
-gsutil rm -r gs://$BUCKET_NAME
+gcloud storage buckets delete gs://$BUCKET_NAME
 gcloud iam service-accounts delete \
-  gce-gcs-service-account@${PROJECT_ID}.iam.gserviceaccount.com \
+  gce-gcs-service-account@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
   --quiet
 ```

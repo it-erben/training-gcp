@@ -105,9 +105,9 @@ Klicken Sie dazu auf den SSH-Knopf in der Liste der VMs.
 
 ![image.png](images/gce-07-ssh.png)
 
-Zuletzt listen wir alle Buckets auf um zu testen, dass die Instanz
+Zuletzt listen wir alle Buckets auf, um zu testen, dass die Instanz
 Vollberechtigung auf Google Cloud Storage hat.
 
 ```shell
-gsutil ls
+gcloud storage buckets list
 ```
