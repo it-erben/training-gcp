@@ -4,7 +4,7 @@ In dieser Übungsaufgabe entwickeln Sie ein Node.js-CLI-Tool, das eine CSV-Datei
 in eine bereits existierende Google BigQuery-Tabelle lädt. Es wird davon
 ausgegangen, dass bereits ein GCP-Projekt vorhanden ist.
 
-## Storage Bucket, Dataset und Tabelle erstellen
+## Voraussetzungen
 
 Stellen Sie sicher, dass Sie die Google Cloud SDK installiert haben und sich
 authentifiziert haben:
@@ -13,6 +13,21 @@ authentifiziert haben:
 gcloud auth login
 gcloud config set project YOUR_PROJECT_ID
 ```
+
+Aktivieren Sie die benötigten APIs:
+
+```shell
+gcloud services enable bigquery.googleapis.com bigquerystorage.googleapis.com storage.googleapis.com
+```
+
+Erstellen Sie Application Default Credentials, damit das Node.js-SDK sich
+authentifizieren kann:
+
+```shell
+gcloud auth application-default login
+```
+
+## Storage Bucket, Dataset und Tabelle erstellen
 
 Erstellen Sie ein Dataset mit dem Namen spotify:
 
