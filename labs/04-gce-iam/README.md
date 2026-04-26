@@ -10,7 +10,7 @@ muss weltweit eindeutig sein.
 
 ```sh
 export BUCKET_NAME="mybucket-gfu-$RANDOM"
-gsutil mb gs://$BUCKET_NAME
+gcloud storage buckets create gs://$BUCKET_NAME
 ```
 
 ## Erstellen eines Service Accounts
