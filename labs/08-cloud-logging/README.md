@@ -2,11 +2,11 @@
 
 Dieses Beispiel dient dazu, Logging-Daten in Cloud Logs zu erzeugen.
 
-> **Material:** Die Quelldateien für diese Übung finden Sie im Material-ZIP
-> unter `cloud-logging/` ([Material herunterladen](../../material/)).
+**Material:** Die Quelldateien für diese Übung finden Sie [hier](../../material/cloud-logging).
 
-Entpacken Sie das Material-ZIP und wechseln Sie in das Verzeichnis
-`cloud-logging/`. Deployen Sie dann die Beispielanwendung:
+Kopieren Sie sie in einen Ordner auf Ihrem Rechner oder in Cloud Shell.
+
+Führen Sie dann folgenden Befehl aus:
 
 ```shell
 gcloud functions deploy logging-example-http-function \

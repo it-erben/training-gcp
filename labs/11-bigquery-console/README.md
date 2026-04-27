@@ -9,8 +9,7 @@ Erstellen Sie zunächst einen Storage-Bucket in der EU. Verwenden Sie die
 Voreinstellungen, die bereits gegeben sind.
 
 Laden Sie danach die Datei `customers-100000.csv` in den Bucket hoch. Die Datei
-finden Sie im Material-ZIP unter `bigquery/customers-100000.csv`
-([Material herunterladen](../../material/)).
+finden Sie [hier](../../material/bigquery/customers-100000.csv)
 
 ## Scan starten
 

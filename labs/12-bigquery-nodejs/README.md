@@ -57,8 +57,7 @@ gsutil mb -l EU gs://${BUCKET_NAME}
 ```
 
 Kopieren Sie die CSV mit Beispieldaten in den neuen Bucket. Die Datei
-`spotify.csv` finden Sie im Material-ZIP unter `bigquery/spotify.csv`
-([Material herunterladen](../../material/)).
+finden Sie [hier](../../material/bigquery/spotify.csv)
 
 ```shell
 gsutil cp spotify.csv gs://${BUCKET_NAME}/spotify.csv

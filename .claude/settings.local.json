@@ -58,7 +58,18 @@
       "Bash(mkdir -p /tmp/cloudbuild-demo)",
       "Read(//private/tmp/cloudbuild-demo/**)",
       "Bash(rtk docker:*)",
-      "Bash(export PROJECT_ID=gfu-training-student-08)"
+      "Bash(export PROJECT_ID=gfu-training-student-08)",
+      "Bash(docker rmi test-cloudbuild-demo:*)",
+      "Bash(gsutil ls:*)",
+      "Bash(rtk npx:*)",
+      "Bash(rtk npm:*)",
+      "Bash(rtk lint:*)",
+      "Bash(python3 -m ruff check labs/cloud-storage-emulator)",
+      "Bash(python3 -m black --check labs/cloud-storage-emulator)",
+      "Bash(terraform fmt:*)",
+      "Bash(rtk pip:*)",
+      "Bash(rtk ruff:*)",
+      "Bash(brew list:*)"
     ]
   }
 }
