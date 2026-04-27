@@ -1,4 +1,4 @@
-# 07 - Pub/Sub: Dead-Letter, Push und BigQuery-Subscription (CLI)
+# 13 - Pub/Sub: Dead-Letter, Push und BigQuery-Subscription (CLI)
 
 In dieser Aufgabe üben Sie den Umgang mit der `gcloud`-CLI für Google Cloud
 Pub/Sub. Sie erstellen ein Topic, eine Pull-Subscription mit Dead-Letter-Topic,
