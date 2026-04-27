@@ -1,4 +1,4 @@
-# 13 - Build und Deployment mit Cloud Build
+# 14 - Build und Deployment mit Cloud Build
 
 Mit dieser Anleitung lernst du, wie man eine einfache Python-Anwendung per
 Docker containerisiert, mit Google Cloud Build automatisiert baut und
