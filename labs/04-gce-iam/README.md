@@ -41,7 +41,6 @@ gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT \
 ## Erstellen einer Compute Engine VM
 
 Erstellen Sie eine neue Compute Engine VM, die den Service Account verwendet.
-Denken Sie daran, die Projekt-ID richtig zu setzen.
 
 ```sh
 gcloud compute instances create my-vm \
