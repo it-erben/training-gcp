@@ -35,7 +35,7 @@ npm install --save @google-cloud/storage
 
 ## Schritt 3: CLI-Skript erstellen
 
-Erstellen Sie eine neue Datei `index.js` im Verzeichnis `gcs-uploader.
+Erstellen Sie eine neue Datei `index.js` im Verzeichnis `gcs-uploader`.
 Fügen Sie den folgenden Code in die Datei ein:
 
 ```javascript
