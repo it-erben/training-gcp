@@ -34,7 +34,7 @@ resource "google_project" "student" {
   folder_id       = google_folder.training.name
   billing_account = var.billing_account
 
-  deletion_policy = "DELETE"
+  deletion_policy = "ABANDON"
 }
 
 resource "google_project_iam_member" "student_owner" {
