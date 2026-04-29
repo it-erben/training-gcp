@@ -96,6 +96,9 @@ apply:terraform:projects:
     script:
         - terraform apply -auto-approve -input=false
     resource_group: terraform-projects
+    retry:
+        max: 2
+        when: script_failure
 
 verify:node_cloud_logging:
     stage: verify
