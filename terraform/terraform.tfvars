@@ -1,1 +1,1 @@
-student_count = 8
+student_count = 0
