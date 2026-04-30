@@ -94,6 +94,8 @@ apply:terraform:projects:
     rules:
         - if: $CI_COMMIT_TAG
     script:
+        - terraform state rm 'google_project.student[3]' || true
+        - terraform state rm 'google_project.student[7]' || true
         - terraform apply -auto-approve -input=false
     resource_group: terraform-projects
     retry:

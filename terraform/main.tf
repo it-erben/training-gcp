@@ -37,21 +37,6 @@ resource "google_project" "student" {
   deletion_policy = "DELETE"
 }
 
-# Remove remaining student projects from state without destroying in GCP
-# (GCP blocks deletion due to recently-created child resources)
-removed {
-  from = google_project.student[3]
-  lifecycle {
-    destroy = false
-  }
-}
-removed {
-  from = google_project.student[7]
-  lifecycle {
-    destroy = false
-  }
-}
-
 resource "google_project_iam_member" "student_owner" {
   count = var.student_count
 
