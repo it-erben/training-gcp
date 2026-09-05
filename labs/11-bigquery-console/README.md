@@ -31,7 +31,7 @@ Wähle den manuellen, externen Import
 
 ---
 
-Wähle den Bucket und die Datei aus. 
+Wähle den Bucket und die Datei aus.
 
 Erstelle über das Menü ein Dataset namens "myds" und eine Tabelle namens "customers".
 
