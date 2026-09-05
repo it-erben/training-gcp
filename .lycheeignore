@@ -1,0 +1,3 @@
+# Die Google Console leitet jeden Aufruf ohne Sitzung auf die Anmeldung um.
+# Der 302 sagt nichts über die Gültigkeit des Links.
+https://console\.cloud\.google\.com/.*
