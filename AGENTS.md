@@ -126,11 +126,19 @@ liegen nur als fertiges PDF vor.
   `javascript`, `sh`, `bash` und `shell` stehen nebeneinander. Innerhalb einer
   Datei die dort vorhandene Variante fortführen, statt eine Datei einseitig
   umzustellen.
-- **Die CI lintet mehr als Markdown.** ESLint, ruff, black und Terraform
-  laufen nur in Merge Requests (`if: $CI_MERGE_REQUEST_ID`). Ein direkter
-  Push auf `main` prüft diese Bereiche nicht — lokal ausführen.
+- **Die CI lintet mehr als Markdown.** Auf GitLab laufen ESLint, ruff,
+  black und Terraform nur in Merge Requests (`if: $CI_MERGE_REQUEST_ID`),
+  ein direkter Push auf `main` prüft diese Bereiche dort nicht. Lokal
+  ausführen.
 - **`.markdownlint.json` gibt es nicht.** markdownlint-cli2 läuft auf
   Defaults. Prosa an der Zeilenbreite der bestehenden Labs ausrichten
   (rund 80 Zeichen).
 - **`material/cloud-logging/node_modules` liegt lokal, ist aber ignoriert.**
   Kein Suchtreffer von dort in eine Aussage über das Repo übernehmen.
+- **Die CI läuft auf zwei Plattformen.** `.gitlab-ci.yml` bindet die
+  GitLab-Komponenten ein, `.github/workflows/ci.yml` ruft `lint.yml`,
+  `slides.yml`, `release.yml` und `pages.yml` aus
+  `it-erben/ci`. ESLint, ruff, black und die
+  Terraform-Prüfungen stehen dort als eigene Jobs im Repo und laufen auch
+  bei einem Push auf `main`. `plan` und `apply` für `terraform/` gibt es
+  nur auf GitLab, weil der State im GitLab-Backend liegt.
